@@ -7,8 +7,8 @@ int main(){
    rmqConfig.set(_arrN,_queryN,_R);
 
 //printf("%d %d %d\n",RMQ::arrN,RMQ::queryN,RMQ::R);
-//  printf("a=\n");write(a+1,a+1+aN);
-// printf("q=\n");write(q+1,q+1+2*qN);
+//printf("a=\n");write(a+1,a+1+aN);
+//printf("q=\n");write(q+1,q+1+2*qN);
 
    vector<base*> rmqList={new BF, new SEGITER, new SEGREC, new SPTABLE, new SQRTARON, new SQRTAPA, new COUNTBIN, new COUNTTABLE};
    int ind=1;
