@@ -1,4 +1,4 @@
-CC=g++-6 -std=c++14 
+CC=g++-6 -std=c++14  -O4
 
 WR=-Wall
 

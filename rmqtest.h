@@ -19,31 +19,15 @@ namespace RMQ{
 
       int aN;
       pI a;
-      int mem;
       base(){};
       ~base(){};
       virtual void init(pI _a){
          aN=_a[0];a=_a;
-         mem=0;
       }
       virtual int operator()(int,int)=0;
       virtual string name() {
          return "undefined";
       }
-      
-      //~ int* RequestIntArray(int len) {
-         //~ mem+=sizeof(int)*len;
-         //~ return new int[len];
-      //~ }
-      
-      //~ int** RequestIntPArray(int len) {
-         //~ mem+=sizeof(int*)*len;
-         //~ return new int*[len];
-      //~ }
-      
-      //~ int MemoryUsage() {
-         //~ return mem;
-      //~ }
    };
 
 
@@ -67,7 +51,6 @@ namespace RMQ{
          base::init(_t);
          block_sz=sqrt(aN);
          t=_t;
-   //      table=RequestIntArray(aN/block_sz+2);
          table=mynew.getmem<int>(aN/block_sz+2);
 
          t++;
@@ -183,24 +166,15 @@ namespace RMQ{
 
          dp = mynew.getmem<int>((sz+1)*(log+1));
          
-         //for(int i=0;i<sz;++i) {
-         //   dp[i]=RequestIntArray(log);
-         //}
-      
-         
          for(int i=0;i<sz;++i) {
             INDEXDP(i, 0)=t[i];
          }
-         
-         
 
          for(int j=1;j<log;++j) {
             for(int i=0;i<sz;++i) {
                INDEXDP(i, j)=min(INDEXDP(i, j-1), INDEXDP(min(sz-1,i+(1<<(j-1))), j-1));
             }
          }
-         
-      
       }
       
       int operator() (int a, int b) {
@@ -233,6 +207,60 @@ namespace RMQ{
          return "SPTABLE";
       }
    };
+
+
+   struct SPTABLE2:base {
+      int* dp;//dp[i,j]=min [i,i+2^j) semi-open interval 0<= i+2^j < aN
+      void init(pI _a) {
+         base::init(_a);
+         int dpsize=0; int delta=0,d1=1;
+         for(int i=aN-1;i>=0;i--){
+            if(i+(d1<<1)<aN){++delta;d1<<=1;}
+            dpsize+=(delta+1);
+         }
+         dp = mynew.getmem<int>(dpsize+aN);
+         int j=aN; delta=0;d1=1;
+         for(int i=aN-1;i>=0;i--){
+            if(i+(d1<<1)<aN){++delta;d1<<=1;}
+            dp[i]=j;
+            j+=(delta+1);
+         }
+         a++;//!!!
+         for(int i=0;i<aN;i++){//i<aN-1
+            *(dp+dp[i])=a[i];
+         }
+
+         for(int i=aN-2;i>=0;i--) {
+            for(int j=1,j1=2;i+j1<aN;j++,j1<<=1){
+               *(dp+dp[i]+j)=min(*(dp+dp[i]+j-1),*(dp+dp[i+(j1>>1)]+j-1));
+            }
+         }
+      }
+      
+      int operator() (int lo, int up) {
+         --lo;--up;
+         int ans=a[up];//pont jo, mert jobbrol nyitott a dp
+         while(up-lo>2){
+            int d=up-lo;
+            int j=0;
+            while(d>1){d>>=1;++j;}
+            ans=min(ans,*(dp+dp[lo]+j));
+            lo=lo+(1<<j);
+         }
+         return min(ans,rangemin(a+lo,a+up));
+      }
+      
+      ~SPTABLE2() {
+         delete[] dp;
+      }
+      
+      string name() {
+         return "SPTABLE2";
+      }
+   };
+
+
+
 
    struct SEGREC:base{
       pI t;
@@ -457,7 +485,7 @@ namespace RMQ{
    }
 
    vector<base*> listAll=
-   {new BF, new SEGITER, new SEGREC, new SPTABLE, 
+   {new BF, new SEGITER, new SEGREC, new SPTABLE, new SPTABLE2, 
    new SQRTARON, new SQRTAPA, new COUNTBIN, new COUNTTABLE};
 
    vector<base*> listAkt;
