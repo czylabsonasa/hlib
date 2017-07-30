@@ -1,5 +1,5 @@
-#ifndef __RMQ_H__
-#define __RMQ_H__
+#ifndef __RMQTEST_H__
+#define __RMQTEST_H__
 
 namespace RMQ{
 
