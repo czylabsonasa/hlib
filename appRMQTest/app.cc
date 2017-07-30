@@ -17,7 +17,6 @@ int main(){
    printf("\n%10s %15s %15s %15s\n","result","algo","time(sec)","mem(bytes)");
 
    for(auto rmq:rmqList) {
-      
       tik();
       mynew.init();
       rmq->init(_arr);
