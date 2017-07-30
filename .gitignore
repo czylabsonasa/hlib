@@ -1,0 +1,8 @@
+*/app
+*list
+*res
+data/
+images/
+Teszt/
+*.pdf
+*.out

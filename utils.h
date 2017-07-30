@@ -21,7 +21,7 @@ char* paramshelper(char* x){
    int i=0;
    while(tmp[i]){
       if(tmp[i]=='='){break;}
-      tmp[i]=toupper(tmp[i]);
+//      tmp[i]=toupper(tmp[i]); //
       i++;
    }
    if(!tmp[i]){return nullptr;}

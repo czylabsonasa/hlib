@@ -8,7 +8,7 @@ LF=$(WR) -I..
 aD=
 aDEPS=$(addprefix ../,$(aD))
 
-bD=common.h inc.h mrand.h utils.h destat.h
+bD=rmqtest.h common.h inc.h mrand.h utils.h destat.h
 bDEPS=$(addprefix ../,$(bD))
 
 cD=

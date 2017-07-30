@@ -47,17 +47,17 @@ namespace RMQ{
    };
 
 
-   struct rmqBF:base{
+   struct BF:base{
       int operator()(int q0, int q1){//q0<=q1
          return rangemin(a+q0,a+q1+1);
       }
       
       string name() {
-         return "BRUTEFORCE";
+         return "BF";
       }
    };
 
-   struct rmqSQRT2:base {
+   struct SQRTARON:base {
       int block_sz;
       pI t;
       int *table;
@@ -121,7 +121,7 @@ namespace RMQ{
       }
    };
 
-   struct rmqSegment2:base {
+   struct SEGITER:base {
          int *tree;
          int *t;
 
@@ -158,15 +158,15 @@ namespace RMQ{
          }
 
          string name() {
-            return "SEGMENTNONREC";
+            return "SEGITER";
          }
 
-         ~rmqSegment2() {
+         ~SEGITER() {
             delete []tree;
          }
    };
 
-   struct rmqSparse:base {
+   struct SPTABLE:base {
       int sz,log;
       pI t;
       int* dp;
@@ -225,16 +225,16 @@ namespace RMQ{
          return ans;
       }
       
-      ~rmqSparse() {
+      ~SPTABLE() {
          delete[] dp;
       }
       
       string name() {
-         return "SPARSE";
+         return "SPTABLE";
       }
    };
 
-   struct rmqSegment1:base{
+   struct SEGREC:base{
       pI t;
       int sz;
       int *tree;
@@ -275,15 +275,15 @@ namespace RMQ{
       }
       
       string name() {
-         return "SEGMENTREC";
+         return "SEGREC";
       }
       
-      ~rmqSegment1() {
+      ~SEGREC() {
          delete[] tree;
       }
    };
 
-   struct rmqCounting1:base {
+   struct COUNTBIN:base {
       pI t;
       
       int **s;
@@ -343,10 +343,10 @@ namespace RMQ{
          return mxmi;
       }
       string name() {
-         return "COUNTINGBIN";
+         return "COUNTBIN";
       }
       
-      ~rmqCounting1() {
+      ~COUNTBIN() {
          for(int i=0;i<=R;++i) delete[] s[i];
          delete[] s;
          delete[] cnt;
@@ -355,7 +355,7 @@ namespace RMQ{
       
    };
 
-   struct rmqSQRT:base{
+   struct SQRTAPA:base{
       pI pc;
       int sqaN;
       int h,m;//hanyados,maradek
@@ -392,12 +392,12 @@ namespace RMQ{
          return "SQRTAPA";
       }
 
-      ~rmqSQRT(){
+      ~SQRTAPA(){
          delete[] pc;
       }
    };
 
-   struct rmqCounting2:base {
+   struct COUNTTABLE:base {
          int *freq, R, *t;
 
          #define INDEXFREQ(x, y) freq[(x)+(y)*(R+1)]
@@ -439,10 +439,10 @@ namespace RMQ{
          }
 
          string name() {
-               return "COUNTINGTABLE";
+               return "COUNTTABLE";
          }
 
-         ~rmqCounting2() {
+         ~COUNTTABLE() {
                delete[] freq;
          }
    };
@@ -456,56 +456,54 @@ namespace RMQ{
       }
    }
 
-   int*arr=nullptr;
-   int arrN=10000;
-   int*query=nullptr;
-   int queryN=10000;
-   int R=10000;
+   int*_arr=nullptr;
+   int _arrN=10000;
+   int*_query=nullptr;
+   int _queryN=10000;
+   int _R=10000;
    struct {
    // grafparameterek
       char MELYIK[32];
-      int SEED;
-      //~ void defaults(){
-         //~ _arrN=10000;
-         //~ _queryN=10000;
-         //~ _R=1000;
-         //~ strcpy(_MELYIK,"1111111111111111");
-         //~ _SEED=-1;
-      //~ }
-   //
+      int _SEED;
+
       void init(){
-         // defaults();
          FILE*fp=fopen("rmq.conf","r");
          if(nullptr==fp){_ERR("config error,using defaults...");return;}
-printf("elvileg rmq.conf nyitva\n");
          char ass[128];//assignment
          while(1==fscanf(fp,"%s",ass)){
-printf("ass: %s\n",ass);
             char* t=paramshelper(ass);
             while(1){
-               _CHECK(arrN,=%d);
-               _CHECK(queryN,=%d);
-               _CHECK(R,=%d);
+               _CHECK(_arrN,=%d);
+               _CHECK(_queryN,=%d);
+               _CHECK(_R,=%d);
                //_CHECK(MELYIK,=%s);
-               _CHECK(SEED,=%d);
+               _CHECK(_SEED,=%d);
                break;
             }
          }
          fclose(fp);
-         mrand::init(SEED);
-         arr=new int[arrN+1];
-         arr[0]=arrN;
-         for(int i=1;i<=arrN;i++){
-            arr[i]=mrand::IRND(1,R);
+         mrand::init(_SEED);
+         _arr=new int[_arrN+1];
+         _query=new int[2*_queryN+1];
+         _arr[0]=_arrN;
+         _query[0]=_queryN;
+      }
+      void set(int taN=_arrN, int tqN=_queryN, int tR=_R){
+         _arr[0]=taN;
+         for(int i=1;i<=taN;i++){
+            _arr[i]=mrand::IRND(1,tR);
          }
-         query=new int[2*queryN+1];
-         query[0]=queryN;
-         for(int i=1;i<=queryN;i++){
-            int x=mrand::IRND(1,arrN);
-            int y=mrand::IRND(1,arrN);
+         _query[0]=tqN;
+         for(int i=1;i<=tqN;i++){
+            int x=mrand::IRND(1,taN);
+            int y=mrand::IRND(1,taN);
             if(x>y){swap(x,y);}
-            query[2*i-1]=x;query[2*i]=y;
+            _query[2*i-1]=x;_query[2*i]=y;
          }
+      }
+      void cleanup(){
+         delete[] _arr;
+         delete[] _query;
       }
    }rmqConfig;
 
