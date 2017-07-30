@@ -26,7 +26,7 @@ int main(){
       
       double timePassed=tak();
       
-  //  write(ansLocal+1,ansLocal+1+qN);
+//write(ansLocal+1,ansLocal+1+qN);
       
       if(ind>1) {
          bool ok=true;
