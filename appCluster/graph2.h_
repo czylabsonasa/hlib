@@ -1,0 +1,85 @@
+#ifndef __GRAPH2_H__
+#define __GRAPH2_H__
+#include "tartaly.h"
+#include "inc.h"
+
+struct graph{
+   struct tINFO{int t;tINFO* nxt;};
+   int NV;
+   int NE,aE;
+   vector<tINFO*> adj;
+   vector<tINFO> lista;//idx=0 unused (sentinel)
+   tVI deg;
+   graph(int _NV,int _NE):NV(_NV),NE(_NE),adj(NV+1),lista(2*NE+9),deg(NV+1){
+      aE=0;
+   }
+   graph(int _NV):NV(_NV),NE(0),adj(NV+1),deg(NV+1){}
+   graph(int _NV,const aTartaly& tar):NV(_NV),NE(0),adj(NV+1),deg(NV+1){
+      lista.resize(2*tar.meret+9);
+      const auto _B(tar.tar.begin());
+      const auto _E(tar.tar.end());
+      aE=0;
+      for(auto it=_B;it!=_E;it++){
+         insertU(it->a,it->b);
+      }
+      NE=aE/2;
+   }
+
+   graph(char* const fname){//ezt finomitani kellene egy parameterrel (undirected directed)
+      FILE*fp=fopen(fname,"r");
+      fscanf(fp,"%d%d",&NV,&NE);
+      adj.resize(NV+1);
+      deg.resize(NV+1);
+      lista.resize(2*NE+9);
+      aE=0;
+      for(int i=0;i<NE;i++){
+         int s,t;fscanf(fp,"%d%d",&s,&t);
+         insertU(s,t);
+      }
+      fclose(fp);
+   }
+
+
+
+   void clear(){
+      aE=0;
+   }
+
+   void insertU(int a,int b){//undirected
+      auto tmp=adj[a];
+      adj[a]=&lista[++aE];
+      lista[aE]=tINFO{b,tmp};
+      ++deg[a];
+
+      tmp=adj[b];
+      adj[b]=&lista[++aE];
+      lista[aE]=tINFO{a,tmp};
+      ++deg[b];
+   }
+
+   void insertD(int a,int b){//directed
+      auto tmp=adj[a];
+      adj[a]=&lista[++aE];
+      lista[aE]=tINFO{b,tmp};
+      ++deg[a];
+   }
+   
+};
+
+
+void write(const graph& G,const char* const fname){
+   FILE*fp=fopen(fname,"w");
+   fprintf(fp,"%d %d\n",G.NV,G.NE);
+   for(int s=1;s<=G.NV;s++){
+      auto it=G.adj[s];
+      while(it!=nullptr){
+         if((it->t)>s){
+            fprintf(fp,"%d %d\n",s,it->t);
+         }
+         it=(it->nxt);
+      }
+   }
+   fclose(fp);
+}
+
+#endif
