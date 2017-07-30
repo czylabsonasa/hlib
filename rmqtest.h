@@ -456,30 +456,41 @@ namespace RMQ{
       }
    }
 
+   vector<base*> listAll=
+   {new BF, new SEGITER, new SEGREC, new SPTABLE, 
+   new SQRTARON, new SQRTAPA, new COUNTBIN, new COUNTTABLE};
+
+   vector<base*> listAkt;
+
+
    int*_arr=nullptr;
    int _arrN=10000;
    int*_query=nullptr;
    int _queryN=10000;
    int _R=10000;
+   char _WHICH[256];
    struct {
    // grafparameterek
       char MELYIK[32];
       int _SEED;
 
       void init(){
+         _WHICH[0]=0;
          FILE*fp=fopen("rmq.conf","r");
          if(nullptr==fp){_ERR("config error,using defaults...");return;}
-         char ass[128];//assignment
-         while(1==fscanf(fp,"%s",ass)){
+         char ass[256];//assignment
+         while(1==fscanf(fp,"%255[^\n] ",ass)){//they called it "negated scanset"
             char* t=paramshelper(ass);
+            if(t==nullptr){continue;}
             while(1){
                _CHECK(_arrN,=%d);
                _CHECK(_queryN,=%d);
                _CHECK(_R,=%d);
-               //_CHECK(MELYIK,=%s);
+               _CHECK(_WHICH,=%s);
                _CHECK(_SEED,=%d);
                break;
             }
+//printf("%s\n",_WHICH);
          }
          fclose(fp);
          mrand::init(_SEED);
@@ -487,6 +498,8 @@ namespace RMQ{
          _query=new int[2*_queryN+1];
          _arr[0]=_arrN;
          _query[0]=_queryN;
+
+         setlist();
       }
       void set(int taN=_arrN, int tqN=_queryN, int tR=_R){
          _arr[0]=taN;
@@ -501,11 +514,33 @@ namespace RMQ{
             _query[2*i-1]=x;_query[2*i]=y;
          }
       }
+      void setlist(){
+         if(_WHICH[0]==0){return;}
+         char*beg=_WHICH;
+         while(1){
+            while(*beg&&!isalnum(*beg)){beg++;}
+            if(!*beg){break;}
+            char*end=beg;
+            while(isalnum(*end)){end++;}
+            string tmp(beg,end);
+            for(auto it=listAll.begin();it!=listAll.end();it++){
+               if((*it)->name()==tmp){
+                  listAkt.push_back(*it);
+                  break;
+               }
+            }
+            beg=end;
+         }
+      }
+      
       void cleanup(){
          delete[] _arr;
          delete[] _query;
       }
    }rmqConfig;
+
+
+   
 
 }//namespace RMQ
 
