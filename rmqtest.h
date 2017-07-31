@@ -209,45 +209,32 @@ namespace RMQ{
    };
 
 
+#define eval(x,y) dp[(x)+(y)*aN]
    struct SPTABLE2:base {
       int* dp;//dp[i,j]=min [i,i+2^j) semi-open interval 0<= i+2^j < aN
-      void init(pI _a) {
+      void init(pI _a){
          base::init(_a);
-         int dpsize=0; int delta=0,d1=1;
-         for(int i=aN-1;i>=0;i--){
-            if(i+(d1<<1)<aN){++delta;d1<<=1;}
-            dpsize+=(delta+1);
-         }
-         dp = mynew.getmem<int>(dpsize+aN);
-         int j=aN; delta=0;d1=1;
-         for(int i=aN-1;i>=0;i--){
-            if(i+(d1<<1)<aN){++delta;d1<<=1;}
-            dp[i]=j;
-            j+=(delta+1);
-         }
+         const int l2s=1+int(log2(aN));//
+         dp = mynew.getmem<int>(l2s*aN);
          a++;//!!!
          for(int i=0;i<aN;i++){//i<aN-1
-            *(dp+dp[i])=a[i];
+            eval(i,0)=a[i];
          }
-
-         for(int i=aN-2;i>=0;i--) {
-            for(int j=1,j1=2;i+j1<aN;j++,j1<<=1){
-               *(dp+dp[i]+j)=min(*(dp+dp[i]+j-1),*(dp+dp[i+(j1>>1)]+j-1));
+         for(int j=1,j1=2;j<l2s;j++,j1<<=1){
+            for(int i=0;i+j1<aN;i++){
+               eval(i,j)=min(eval(i,j-1),eval(i+(j1>>1),j-1));
             }
          }
       }
       
       int operator() (int lo, int up) {
          --lo;--up;
+         if(up-lo<2){return rangemin(a+lo,a+up+1);}
          int ans=a[up];//pont jo, mert jobbrol nyitott a dp
-         while(up-lo>2){
-            int d=up-lo;
-            int j=0;
-            while(d>1){d>>=1;++j;}
-            ans=min(ans,*(dp+dp[lo]+j));
-            lo=lo+(1<<j);
-         }
-         return min(ans,rangemin(a+lo,a+up));
+//         int t=int(log2(up-lo));
+         int t=31-__builtin_clz(up-lo);
+         ans=min(ans,eval(lo,t));
+         return min(ans,eval(up-(1<<t),t));
       }
       
       ~SPTABLE2() {
