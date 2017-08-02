@@ -4,30 +4,29 @@
 #include "graph.h"
 
 struct cluster{
-   int NV;
+   int V;
    vector<bool> volt;
    tVI numtri;
    tVD lcc;
-   //max capacity : _NV
-   cluster(int const _NV):volt(_NV),numtri(_NV),lcc(_NV){}
+   cluster(int _V=0){}
 
 //~ //naive: forall vertex: take the neighbours, put them in a vector, and iterate through the vector
 //~ //to find the closing edges NV*maxdeg^2
-   void init(int _NV){
-      NV=_NV;
-      volt.resize(NV+1);
-      numtri.resize(NV+1);
-      lcc.resize(NV+1);
+   void init(int _V){
+      V=_V;
+      volt.resize(V+1);
+      numtri.resize(V+1);
+      lcc.resize(V+1);
    }
    
    void count(const graph& G){//numtri num of triangles centered at idx
-      init(G.NV);
-      for(int i=1;i<=NV;i++){
+      init(G.V);
+      for(int i=1;i<=V;i++){
          volt[i]=false;
          numtri[i]=0;
       }
       
-      for(int s=1;s<=G.NV;s++){
+      for(int s=1;s<=G.V;s++){
          if(G.deg[s]<2){
             continue;
          }
@@ -52,13 +51,13 @@ struct cluster{
 
 //same as before with the reduced graph   
    void countR(const graph& rG){//put into c the cluster coeffs (L:local)
-      init(rG.NV);
-      for(int i=1;i<=NV;i++){
+      init(rG.V);
+      for(int i=1;i<=V;i++){
          volt[i]=false;
          numtri[i]=0;
       }
 
-      for(int s=1;s<=NV;s++){
+      for(int s=1;s<=V;s++){
          if(rG.deg[s]<2){
             continue;
          }
@@ -93,7 +92,7 @@ struct cluster{
    //a naivecount-nak megfeleloen a local clustering coefficient vector szamolja
    void coeff(const graph& G){//lcc: local clustering coeff
       count(G);
-      for(int s=1;s<=NV;s++){
+      for(int s=1;s<=V;s++){
          lcc[s]=complcc(G.deg,s);
       }
    }
@@ -101,7 +100,7 @@ struct cluster{
    //a naivecountR-nak megfeleloen a local clustering coefficient vector szamolja
    void coeffR(const graph& rG,const tVI& deg){//lcc: local clustering coeff, reduced graph!!!
       countR(rG);
-      for(int s=1;s<=NV;s++){
+      for(int s=1;s<=V;s++){
          lcc[s]=complcc(deg,s);
       }
    }

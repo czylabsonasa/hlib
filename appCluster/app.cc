@@ -8,24 +8,25 @@ int main(int np,char**p){
    tik(); 
    vector<tII> elist;
    readelist(p[1], elist); //read from file
-   graph G(elist[0].x, elist[0].y); 
-   G.init(elist);
+   graph G;
+	G.init(elist);
    _LOG(_ERR("graph: %lf sec\n",tak()));
 
    destat ds;
-//~ ds.comp(tVD{1,2,3,4,5,6},0,6);
-//~ ds.write("proba");
-//~ return 0;
+	// tVD v{0,1,2,3,4,5,6};
+	// ds.comp(v);
+	// ds.write("proba");
+	// return 0;
 
    tik();
-   ds.comp(G.deg,1,G.NV+1);
+   ds.comp(G.deg);
    ds.write("G.deg");
    _LOG(_ERR("G.deg stat: %lf sec\n",tak()));
 
-   cluster cla(G.NV+1);
+   cluster cla(G.V);
 
    tik();
-   graph rG(G.NV,G.NE); cla.g2rg(G,rG);
+   graph rG; rG.init(G,REDUCED);
    _LOG(_ERR("reduced graph: %lf sec\n",tak()));
 
 
@@ -33,27 +34,27 @@ int main(int np,char**p){
    tik();
    cla.count(G);
    _LOG(_ERR("count: %lf sec\n",tak()));
-   ds.comp(cla.numtri, 1, G.NV+1);
+   ds.comp(cla.numtri);
    ds.write("count vector");
-//   write(cla.numtri, 1, G.NV+1);
+//   write(cla.numtri, 1, G.V+1);
 
-   tik();
-   cla.countR(rG);
-   _LOG(_ERR("countR: %lf sec\n",tak()));
-   ds.comp(cla.numtri,1,G.NV+1);
-   ds.write("countR vector");
+   // tik();
+   // cla.countR(rG);
+   // _LOG(_ERR("countR: %lf sec\n",tak()));
+   // ds.comp(cla.numtri);
+   // ds.write("countR vector");
 
    tik();
    cla.coeff(G);
    _LOG(_ERR("coeff: %lf sec\n",tak()));
-   ds.comp(cla.lcc, 1, G.NV+1);
+   ds.comp(cla.lcc);
    ds.write("coeff vector");
 
-   tik();
-   cla.coeffR(rG, G.deg);
-   _LOG(_ERR("coeffR: %lf sec\n",tak()));
-   ds.comp(cla.lcc, 1, G.NV+1);
-   ds.write("coeffR vector");
+   // tik();
+   // cla.coeffR(rG, G.deg);
+   // _LOG(_ERR("coeffR: %lf sec\n",tak()));
+   // ds.comp(cla.lcc);
+   // ds.write("coeffR vector");
 
 
    return 0;

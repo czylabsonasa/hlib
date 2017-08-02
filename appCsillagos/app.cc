@@ -6,8 +6,6 @@
 #include "destat.h"
 
 
-
-
 int main(){
    mrand::init(-1);//fix sorozat
 tik();
@@ -24,12 +22,12 @@ _LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
 
 tik();
    
-   graph G(csi.NV,csi.NE);
-   G.init(csi.NV,T);
+   graph G(csi.V,csi.E);
+   G.init(csi.V,T);
 _LOG(_ERR("graph (tartaly)=%lf sec\n",tak()));
 
    destat dst;
-   dst.comp(G.deg,1,G.NV+1);
+   dst.comp(G.deg);
    dst.write("deg:");
 
    return 0;

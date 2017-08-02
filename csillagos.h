@@ -14,7 +14,7 @@ struct csillagosInfo{
    int LEPES;
    int NCSM;
    int WCSLIST,WELIST;
-   int NV, NE;//a vegen 
+	int V, E;//a vegen 
    int ISM;//szimulaciohoz
    void defaults(){
       P=Q=R=0.5;
@@ -206,7 +206,7 @@ struct csillagos{
    }
    //
    void write(){
-      csp.NV=aCsucs;
+      csp.V=aCsucs;
       if(1==csp.WCSLIST){
          FILE* fp=fopen("cslist","w");
          fprintf(fp,"%d %d\n",LEPES,NCSM);
@@ -219,7 +219,7 @@ struct csillagos{
          }
          fclose(fp);
       }
-      csp.NE=tar.meret;
+      csp.E=tar.meret;
       if(1==csp.WELIST){
          FILE* fp=fopen("elist","w");
          fprintf(fp,"%d %d\n",aCsucs,tar.meret);
