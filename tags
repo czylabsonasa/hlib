@@ -1,0 +1,20 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+LLI	inc.h	/^typedef long long int LLI;$/;"	t
+__INC_H__	inc.h	2;"	d
+pI	inc.h	/^typedef int* pI;$/;"	t
+tFUNIV	inc.h	/^typedef function<int()> tFUNIV;$/;"	t
+tII	inc.h	/^struct tII{int x;int y;};$/;"	s
+tIID	inc.h	/^struct tIID{int x;int y;double w;};$/;"	s
+tVD	inc.h	/^typedef vector<double> tVD;$/;"	t
+tVFLI	inc.h	/^typedef vector<forward_list<int>> tVFLI;$/;"	t
+tVI	inc.h	/^typedef vector<int> tVI;$/;"	t
+w	inc.h	/^struct tIID{int x;int y;double w;};$/;"	m	struct:tIID
+x	inc.h	/^struct tIID{int x;int y;double w;};$/;"	m	struct:tIID
+x	inc.h	/^struct tII{int x;int y;};$/;"	m	struct:tII
+y	inc.h	/^struct tIID{int x;int y;double w;};$/;"	m	struct:tIID
+y	inc.h	/^struct tII{int x;int y;};$/;"	m	struct:tII

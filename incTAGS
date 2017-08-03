@@ -1,0 +1,21 @@
+
+tags,794
+!_TAG_FILE_FORMAT	2	/extended format;1,0
+!_TAG_FILE_FORMAT	2	/extended format; --format=format1,0
+__INC_H__	inc.h	h8,389
+tFUNIV	inc.h	/^typedef function<int(int10,445
+tIID	inc.h	/^struct tIID{tIID12,542
+tIID	inc.h	/^struct tIID{int x;12,542
+tIID	inc.h	/^struct tIID{int x;int y;12,542
+tIID	inc.h	/^struct tIID{int x;int y;double w;12,542
+tVFLI	inc.h	/^typedef vector<forward_list<int>> tVFLI;14,643
+w	inc.h	/^struct tIID{tIID16,747
+w	inc.h	/^struct tIID{int x;16,747
+w	inc.h	/^struct tIID{int x;int y;16,747
+w	inc.h	/^struct tIID{int x;int y;double w;16,747
+x	inc.h	/^struct tII{tII18,875
+x	inc.h	/^struct tII{int x;18,875
+x	inc.h	/^struct tII{int x;int y;18,875
+y	inc.h	/^struct tII{tII20,992
+y	inc.h	/^struct tII{int x;20,992
+y	inc.h	/^struct tII{int x;int y;20,992
