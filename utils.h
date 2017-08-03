@@ -87,9 +87,11 @@ template<typename R=double,typename T> R sum(const vector<T>& x,int _b,int const
 
 
 
-void write(const tVI& x,int _b,int const _e){
+void write(const tVI& x, const int _s=1){
+	auto _b=x.begin()+_s;
+	auto _e=x.end();
    while(_b<_e){
-      printf("%d ",x[_b++]);
+      printf("%d ",*(_b++));
    }
    printf("\n");
 }
@@ -131,6 +133,17 @@ void readelist(const char* const fname, vector<tII>& elek){
    }
    fclose(fp);
 }
+
+void readelist(FILE*fp, vector<tII>& elek){//for multiple reading
+   int V,E;fscanf(fp,"%d%d",&V,&E);
+   elek.resize(E+1);
+   elek[0].x=V;elek[0].y=E;
+   for(int i=1;i<=E;i++){
+      int x,y;fscanf(fp,"%d%d",&x,&y);
+      elek[i].x=x;elek[i].y=y;
+   }
+}
+
 
 
 int rangemin(pI beg, pI end){

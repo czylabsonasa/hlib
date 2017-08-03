@@ -19,11 +19,11 @@ all: app
 
 
 app: app.cc $(aDEPS) $(bDEPS) $(cDEPS)
-	$(CC) $(LF) app.cc -o app
+	$(CC) $(LF) app.cc -o _app
 
 pgapp: 
-	$(CC) $(LF) -pg app.cc -o app; ./app ; gprof ./app > gp.out
+	$(CC) $(LF) -pg app.cc -o _app; ./_app ; gprof ./_app > _gp.out
 
 
 clean:
-	rm -f app
+	rm -f _app

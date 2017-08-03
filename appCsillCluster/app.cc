@@ -18,8 +18,8 @@ int main(){
    
 
 
-   FILE*fdeg=fopen("degres","a");
-   FILE*fclus=fopen("clusres","a");
+   FILE*fdeg=fopen("_degres","a");
+   FILE*fclus=fopen("_clusres","a");
 
 printf("ISM=%d\n",csi.ISM);
 

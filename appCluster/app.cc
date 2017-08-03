@@ -1,5 +1,6 @@
-//csillagos modell cluster app.
-#include "common.h"
+//cluster app
+#include "inc.h"
+#include "utils.h"
 #include "graph.h"
 #include "cluster.h"
 

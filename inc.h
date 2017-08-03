@@ -19,10 +19,7 @@
 #include <functional>
 #include <chrono>
 #include <iostream>
-
 //#include <limits>
-
-
 
 using namespace std;
 typedef vector<forward_list<int>> tVFLI;
@@ -33,10 +30,5 @@ struct tII{int x;int y;};
 struct tIID{int x;int y;double w;};
 typedef long long int LLI;
 typedef int* pI;
-
-
-
-
-
 
 #endif
