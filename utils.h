@@ -87,16 +87,8 @@ template<typename R=double,typename T> R sum(const vector<T>& x,int _b,int const
 
 
 
-void write(const tVI& x, const int _s=1){
-	auto _b=x.begin()+_s;
-	auto _e=x.end();
-   while(_b<_e){
-      printf("%d ",*(_b++));
-   }
-   printf("\n");
-}
 
-
+// int vector output
 void write(int* _b, int* const _e){
    while(_b<_e){
       printf("%d ",*(_b++));
@@ -104,14 +96,36 @@ void write(int* _b, int* const _e){
    printf("\n");
 }
 
-
-
-void write(const tVD& x,int _b,int const _e,int const prec=3){
+void write(const tVI& x, const int _s=1){//s:shift the begin
+	auto _b=x.begin()+_s;
+	const auto _e=x.end();
    while(_b<_e){
-      printf("%.*lf ",prec,x[_b++]);
+      printf("%d ",*(_b++));
    }
    printf("\n");
 }
+
+
+
+
+// 
+void write(const tVD& x,int const _s=1,int const prec=3){
+	auto _b=x.begin()+_s;
+	const auto _e=x.end();
+   while(_b<_e){
+      printf("%.*lf ",prec,(*_b++));
+   }
+   printf("\n");
+}
+
+void write(double* _b, double* const _e,int const prec=3){
+   while(_b<_e){
+		printf("%.*lf ", prec, *(_b++));
+   }
+   printf("\n");
+}
+
+
 
 
 void write(vector<tII>& elek,const char* const fname){
@@ -144,6 +158,14 @@ void readelist(FILE*fp, vector<tII>& elek){//for multiple reading
    }
 }
 
+void readVector(FILE*fp, vector<double>& x,int const s=1){//for multiple reading
+   int N;fscanf(fp,"%d",&N);
+   x.resize(N+s);
+	if(s){x[0]=N;}
+   for(int i=s;i<N+s;i++){
+      fscanf(fp,"%lf",&x[i]);
+   }
+}
 
 
 int rangemin(pI beg, pI end){

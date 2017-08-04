@@ -7,16 +7,12 @@ struct destat{
 	tVD _v;
    double _mean, _sigma;
    double _min , _max, _R;
-   int _N;
-   template<typename T> void comp(vector<T>&);//only fill v
-	void realcomp();
-
-	//todo:::
-   void prop2frek(vector<int>& prop, vector<int>& frek){
-      int const NV=prop.size()-1;//0 nem hasznalt
-      sort(prop.begin()+1, prop.end());
-      frek.resize(prop[NV]);
-   }
+	//the range is 1.._N:
+	int _N;
+	//only fill v
+   template<typename T> void comp(const vector<T>&);
+	void comp();
+	template<typename T> const vector<double>& freq(const vector<T>&);
 };
 
 
@@ -26,7 +22,7 @@ void write(const destat&, FILE*);
 //////////////////////////////////////////////////////////
 
 // --- method defs ---
-template<typename T> void destat::comp(vector<T>& v){
+template<typename T> void destat::comp(const vector<T>& v){
    _N=v.size()-1;//0 is unused
 	if(_N<1){
 		_sigma=_mean=-1;
@@ -34,10 +30,10 @@ template<typename T> void destat::comp(vector<T>& v){
 	}
 	_v.resize(_N+1);
 	copy(v.begin(),v.end(),_v.begin());
-	realcomp();
+	comp();
 }
 
-void destat::realcomp(){
+void destat::comp(){
    _min=_max=_v[1]; 
    _mean=0.0;_sigma=0.0;
    for(int i=1;i<=_N;i++){
@@ -52,6 +48,17 @@ void destat::realcomp(){
 	_sigma=sqrt(_sigma/double(_N)-_mean*_mean);
 }
 
+//comp is executed before, only calling with vector<int> is
+// meningful
+template<typename T> const vector<double>& destat::freq(const vector<T>& v){
+	_v.resize(1+int(_max));
+	fill(_v.begin(),_v.end(),0.0);
+	for(int i=1;i<=_N;i++){
+		int vi=int(v[i]);
+		_v[vi]=_v[vi]+1.0;
+	}
+	return _v;
+}
 
 
 // -- external fun defs ---

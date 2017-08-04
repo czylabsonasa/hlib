@@ -36,13 +36,22 @@
 * [[../_images/rgbvsapP06.pdf][másik]]
 
 
-| név | pont |
-|-----+------|
-| a   |   23 |
-| b   |   22 |
-| c   |   23 |
+| név          | kód  | pont |
+|--------------+------+------|
+| Kiss Károly  | A12  |    3 |
+| Nagy Aliza   | o321 |    2 |
+| Orbán Viktor | 23x  |    1 |
+
+
 
 #+OPTIONS: tex:t
-$$\sum_{i=1}^123 a_{i}$$
+$$\sum_{i=1}^{123} a_{i}$$
+
+
+
+
+
+
+
 
 

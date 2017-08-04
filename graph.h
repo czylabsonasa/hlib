@@ -4,7 +4,10 @@
 #include "inc.h"
 
 // -- declarations ---
-enum tMode{REDUCED, FULL};//REDUCED: from adj[s] only some of the neighbours are taken
+
+//REDUCED: from adj[s] only some of the neighbours are taken
+enum tMode{REDUCED, FULL};
+
 struct graph{
    struct tINFO{int t; tINFO* nxt;};
    int V,E,iE;
@@ -25,6 +28,9 @@ struct graph{
 // -- declarations external methods --
 void write(const graph&, const char* const);
 graph genKlikk(int);
+graph genStar(int);
+
+
 
 
 ///////////////////////////////////////////////////////////////////
@@ -112,7 +118,6 @@ void graph::insertD(int a,int b){//directed
 
 
 
-
 // --- definitions of externals --
 void write(const graph& G,const char* const fname){
    FILE*fp=fopen(fname,"w");
@@ -139,5 +144,14 @@ graph genKlikk(int V){
 	}
 	return G;
 }
+
+graph genStar(int V){
+	graph G; G.init(V,(V-1));
+	for(int i=2;i<=V;i++){
+		G.insertU(1,i);
+	}
+	return G;
+}
+
 
 #endif
