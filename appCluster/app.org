@@ -1,7 +1,9 @@
 * Cluster
-**  [[./app.cc][app.cc]]
-***  [[../inc.h][inc.h]]
-***  [[../utils.h][utils.h]]
-***  [[../cluster.h][cluster.h]]
-***  [[../graph.h][graph.h]]
-***  [[./ccf.R][ccf.R]]
+  testing the cluster header against given networks.
+*  [[./app.cc][app source]]
+*  [[../inc.h][inc]]
+*  [[../utils.h][utils]]
+*  [[../cluster.h][cluster]]
+*  [[../graph.h][graph]]
+*  [[../destat.h][destat]]
+*  [[./ccstuff.R][ccstuff in R]]
