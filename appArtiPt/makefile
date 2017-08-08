@@ -6,23 +6,20 @@ WR=-Wall
 CF=$(WR) 
 LF=$(WR) -I..
 
-pDEPS=artipt.h csillagos.h graph.h tartaly.h treap.h common.h
+pDEPS=artipt.hpp csillagos.hpp graph.hpp tartaly.hpp treap.hpp common.hpp
 DEPS=$(addprefix ../,$(pDEPS))
 
 
 default:all
 
 app: app.cc $(DEPS)
-	$(CC) $(LF) app.cc -o app
+	$(CC) $(LF) app.cc -o _app
 
 
 pgapp: 
-	$(CC) $(LF) -pg app.cc -o app; ./app ; gprof ./app > gp.out
-
-openall: 
-	kate *.h *.cc makefile model.conf run&
+	$(CC) $(LF) -pg app.cc -o _app; ./_app ; gprof ./_app > gp.out
 
 all: app
 
 clean:
-	rm -f app
+	rm -f _app

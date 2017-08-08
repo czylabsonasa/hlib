@@ -1,8 +1,8 @@
 //cluster app
-#include "inc.h"
-#include "utils.h"
-#include "graph.h"
-#include "cluster.h"
+#include "inc.hpp"
+#include "utils.hpp"
+#include "graph.hpp"
+#include "cluster.hpp"
 
 int main(int np,char**p){
 
@@ -18,40 +18,44 @@ int main(int np,char**p){
    tik();
    ds.comp(G.deg);
    write(ds,"G.deg");
-   _LOG(_ERR("G.deg stat: %lf sec\n",tak()));
 
    cluster cla;
 
-   tik();
-   graph rG; rG.init(G,REDUCED);
-   _LOG(_ERR("reduced graph: %lf sec\n",tak()));
+	{
+		tik();
+		cla.coeff(G, G.deg);
+		_LOG(_ERR("vanilla coeff+mean: %lf sec\n",tak()));
+	}
 
+	{
+		tik();
+		cla.coeffR2(G, G.deg);
+		_LOG(_ERR("vanilla R2 coeff+mean: %lf sec\n",tak()));
+	}
 
-
-   // tik();
-   // cla.count(G);
-   // _LOG(_ERR("count: %lf sec\n",tak()));
-   // ds.comp(cla.numtri);
-   // write(ds,"count vector");
-//   write(cla.numtri, 1, G.V+1);
-
-   // tik();
-   // cla.countR(rG);
-   // _LOG(_ERR("countR: %lf sec\n",tak()));
-   // ds.comp(cla.numtri);
-   // ds.write("countR vector");
-
-   // tik();
-   // cla.coeff(G);
-   // _LOG(_ERR("coeff: %lf sec\n",tak()));
-   // ds.comp(cla.lcc);
-   // write(ds,"coeff vector");
-
-   tik();
-   cla.coeff(rG, G.deg);
-	_LOG(_ERR("coeffR+mean: %lf sec\n",tak()));
 	
+	{
+		tik();
+		graph rG; rG.init(G, dRDC);
+		cla.coeffR(rG, G.deg);
+		_LOG(_ERR("dRDC coeff+mean: %lf sec\n",tak()));
+	}
 
+	{
+		tik();
+		graph rG; rG.init(G, d2RDC);
+		cla.coeffR(rG, G.deg);
+		_LOG(_ERR("d2RDC coeff+mean: %lf sec\n",tak()));
+	}
+	
+	{
+		tik();
+		graph rG; rG.init(G, iRDC);
+		cla.coeffR(rG, G.deg);
+		_LOG(_ERR("iRDC coeff+mean: %lf sec\n",tak()));
+	}
+
+	
    ds.comp(cla.lcc);
    write(ds, "coeffR vector");
 

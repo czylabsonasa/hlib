@@ -1,9 +1,9 @@
 // csillagos modell generalas es a graph letrehozasa (a tartalyon keresztul)
-#include "common.h"
-#include "csillagos.h"
-#include "tartaly.h"
-#include "graph.h"
-#include "destat.h"
+#include "common.hpp"
+#include "csillagos.hpp"
+#include "tartaly.hpp"
+#include "graph.hpp"
+#include "destat.hpp"
 
 
 int main(){
@@ -22,13 +22,13 @@ _LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
 
 tik();
    
-   graph G(csi.V,csi.E);
+   graph G;
    G.init(csi.V,T);
 _LOG(_ERR("graph (tartaly)=%lf sec\n",tak()));
 
    destat dst;
    dst.comp(G.deg);
-   dst.write("deg:");
+   write(dst, "deg:");
 
    return 0;
 }

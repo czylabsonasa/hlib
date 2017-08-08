@@ -1,20 +1,20 @@
 // csillagos modell generalas es a graph letrehozasa (a tartalyon keresztul)
-#include "common.h"
-#include "klikkes.h"
-#include "tartaly.h"
-#include "graph.h"
-#include "destat.h"
-#include "cluster.h"
+#include "common.hpp"
+#include "klikkes.hpp"
+#include "tartaly.hpp"
+#include "graph.hpp"
+#include "destat.hpp"
+#include "cluster.hpp"
 
 
 
 int main(){
-   mrand::init(-1);
+   mrand::init(1123);
 tik();
    klikkesInfo ki;
    aTartaly T(int(ki.LEPES*ki.P*ki.NKM));
    {
-      klikkes KL(ki,T);
+      klikkes KL(ki, T);
       KL.clear();
       KL.step1();
       KL.gen();
@@ -23,24 +23,26 @@ _LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
    }
 
 tik();
-   
-   graph G(ki.NV,ki.NE);
-   G.init(ki.NV,T);
+
+   graph G; G.init(ki.V, T);
+
 _LOG(_ERR("graph (tartaly)=%lf sec\n",tak()));
 
-   graph rG(G.NV, G.NE);
-   rG.init(G,1);
-   cluster cla(G.NV);
-   cla.init(G.NV);
+   tik();
+   graph rG(G.V, G.E);
+
+   rG.init(G, dRDC);
+   cluster cla; cla.init(G.V);
    cla.coeffR(rG, G.deg);
 
    destat dst;
    dst.comp(cla.lcc);
-   dst.write("cluster:");
-
+   write(dst, "cluster:");
 
    dst.comp(G.deg);
-   dst.write("deg:");
+   write(dst, "deg:");
+
+fprintf(stderr,"tobbi: %lf sec\n",tak());
 
    return 0;
 }

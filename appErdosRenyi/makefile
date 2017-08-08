@@ -5,13 +5,13 @@ WR=-Wall
 CF=$(WR) 
 LF=$(WR) -I..
 
-aD=erdosrenyi.h
+aD=erdosrenyi.hpp
 aDEPS=$(addprefix ../,$(aD))
 
-bD=common.h inc.h mrand.h utils.h destat.h
+bD=common.hpp inc.hpp mrand.hpp utils.hpp destat.hpp
 bDEPS=$(addprefix ../,$(bD))
 
-cD=graph.h tartaly.h treap.h
+cD=graph.hpp tartaly.hpp treap.hpp
 cDEPS=$(addprefix ../,$(cD))
 
 default:all
@@ -26,4 +26,4 @@ pgapp:
 
 
 clean:
-	rm -f app
+	rm -f _app

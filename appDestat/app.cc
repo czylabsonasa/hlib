@@ -1,10 +1,10 @@
-// destat.h testing app
+// destat.hpp testing app
 // data generated and result computed by octave,
 // destat's results compared with them
 
-#include "inc.h"
-#include "utils.h"
-#include "graph.h"
+#include "inc.hpp"
+#include "utils.hpp"
+#include "graph.hpp"
 
 int main(){
 	const double tol=1e-12;

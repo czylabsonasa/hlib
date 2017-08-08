@@ -1,5 +1,5 @@
-#include "common.h"
-#include "rmqtest.h"
+#include "common.hpp"
+#include "rmqtest.hpp"
 using namespace RMQ;
 
 int main(){

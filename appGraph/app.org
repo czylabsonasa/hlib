@@ -1,14 +1,13 @@
 * Graph
-  testing
-**  [[../graph.h][graph.h]]
+  testing the graph against simple examples given in the file input
+**  [[../graph.hpp][graph]]
 **  [[./app.cc][app.cc]]
-	 a) read an edgelist 
-	 b) initilaze the graph
-	 c) compute some 
-	 descriptives
-**  [[../inc.h][inc.h]]
-**  [[../utils.h][utils.h]]
-**  [[../destat.h][destat.h]]
+  - read an edgelist 
+  - initilaze the graph
+  - compute some descriptive
+**  [[../inc.hpp][inc]]
+**  [[../utils.hpp][utils]]
+**  [[../destat.hpp][destat]]
 
 **  [[./input][input]]
 	 the structure is:
@@ -20,29 +19,10 @@
 	 ...
 	 sE tE
 
-**  [[./org.conf][org.conf]]
-* [[shell:make][make]]	  
-* learning emacs is funn.
-** DONE asd asd
-	 CLOSED: [2017-08-03 cs 19:19]
-** DONE blahhh
-	 CLOSED: [2017-08-03 cs 19:18]
-* DONE 
-  CLOSED: [2017-08-03 cs 19:30]
-* TODO idore kell ezt
-  DEADLINE: <2017-09-09 szo>
-
-* [[../_images/pooled.svg][valami]]
-* [[../_images/rgbvsapP06.pdf][másik]]
 
 
-| név | pont |
-|-----+------|
-| a   |   23 |
-| b   |   22 |
-| c   |   23 |
 
-#+OPTIONS: tex:t
-$$\sum_{i=1}^123 a_{i}$$
+
+
 
 

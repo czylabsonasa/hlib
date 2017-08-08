@@ -1,17 +1,17 @@
-CC=g++-6 -std=c++14
+CC=g++-6 -std=c++14 -O2
 
 WR=-Wall
 
 CF=$(WR) 
 LF=$(WR) -I..
 
-aD=csillagos.h cluster.h pagerank.h
+aD=csillagos.hpp cluster.hpp pagerank.hpp
 aDEPS=$(addprefix ../,$(aD))
 
-bD=common.h inc.h mrand.h utils.h destat.h
+bD=common.hpp inc.hpp mrand.hpp utils.hpp destat.hpp
 bDEPS=$(addprefix ../,$(bD))
 
-cD=graph.h tartaly.h treap.h
+cD=graph.hpp tartaly.hpp treap.hpp
 cDEPS=$(addprefix ../,$(cD))
 
 default:all

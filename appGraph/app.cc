@@ -1,7 +1,7 @@
-// graph.h testing app
-#include "inc.h"
-#include "utils.h"
-#include "graph.h"
+// graph.hpp testing app
+#include "inc.hpp"
+#include "utils.hpp"
+#include "graph.hpp"
 
 int main(){
    vector<tII> elist;

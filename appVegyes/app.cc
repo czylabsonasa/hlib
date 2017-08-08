@@ -1,11 +1,11 @@
-#include "inc.h"
-#include "mrand.h"
-#include "csillagos.h"
-#include "tartaly.h"
-#include "graph.h"
-#include "wgraph.h"
-#include "artipt.h"
-#include "pagerank.h"
+#include "inc.hpp"
+#include "mrand.hpp"
+#include "csillagos.hpp"
+#include "tartaly.hpp"
+#include "graph.hpp"
+#include "wgraph.hpp"
+#include "artipt.hpp"
+#include "pagerank.hpp"
 
 
 

@@ -1,6 +1,7 @@
 * appDestat
+  testing the descriptive statistics header against octave generated and computed data
 ** [[./app.cc][source]]
 * Headers
-** [[/home/nosy/randomGraph/cpplang/hlib/inc.h][inc]]
-** [[/home/nosy/randomGraph/cpplang/hlib/destat.h][destat]]
-** [[../utils.h][utils]]
+** [[../inc.hpp][inc]]
+** [[../destat.hpp][destat]]
+** [[../utils.hpp][utils]]

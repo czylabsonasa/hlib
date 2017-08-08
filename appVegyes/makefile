@@ -6,7 +6,7 @@ WR=-Wall
 CF=$(WR) 
 LF=$(WR) -I..
 
-pDEPS=csillagos.h graph.h wgraph.h tartaly.h treap.h mrand.h inc.h pagerank.h artipt.h
+pDEPS=csillagos.hpp graph.hpp wgraph.hpp tartaly.hpp treap.hpp mrand.hpp inc.hpp pagerank.hpp artipt.hpp
 DEPS=$(addprefix ../,$(pDEPS))
 
 
@@ -20,7 +20,7 @@ pgapp:
 	$(CC) $(LF) -pg app.cc -o app; ./app ; gprof ./app > gp.out
 
 openall: 
-	kate *.h *.cc makefile model.conf run&
+	kate *.hpp *.cc makefile model.conf run&
 
 all: app
 

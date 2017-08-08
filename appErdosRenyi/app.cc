@@ -1,6 +1,6 @@
-#include "common.h"
-#include "erdosrenyi.h"
-#include "uhv.h"
+#include "common.hpp"
+#include "erdosrenyi.hpp"
+#include "uhv.hpp"
 
 
 
@@ -25,7 +25,7 @@ int main(){
       node2size(uhv,n2s);//n2s[i] size of the unionfind tree rooted at i
       simp(n2s);
       dst.comp(n2s);
-      dst.write("komponensek");//write previously computed descriptives
+      write(dst, "komponensek");//write previously computed descriptives
 
       sort(n2s.begin()+1,n2s.end());
       FILE*fq=fopen("compfrek","w");

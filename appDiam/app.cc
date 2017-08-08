@@ -1,10 +1,10 @@
 //csillagos modell cluster app.
-#include "common.h"
-#include "graph.h"
-#include "cluster.h"
-#include "csillagos.h"
-#include "tartaly.h"
-#include "diam.h"
+#include "common.hpp"
+#include "graph.hpp"
+#include "cluster.hpp"
+#include "csillagos.hpp"
+#include "tartaly.hpp"
+#include "diam.hpp"
 
 int main(){
    mrand::init(-1);// /dev/urandom

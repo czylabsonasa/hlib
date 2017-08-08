@@ -8,10 +8,10 @@ LF=$(WR) -I..
 aD=
 aDEPS=$(addprefix ../,$(aD))
 
-bD=inc.h mrand.h utils.h destat.h
+bD=inc.hpp mrand.hpp utils.hpp destat.hpp
 bDEPS=$(addprefix ../,$(bD))
 
-cD=graph.h tartaly.h treap.h
+cD=graph.hpp tartaly.hpp treap.hpp
 cDEPS=$(addprefix ../,$(cD))
 
 default:all

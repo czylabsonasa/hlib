@@ -8,7 +8,7 @@ LF=$(WR) -I..
 aD=
 aDEPS=$(addprefix ../,$(aD))
 
-bD=rmqtest.h common.h inc.h mrand.h utils.h destat.h
+bD=rmqtest.hpp common.hpp inc.hpp mrand.hpp utils.hpp destat.hpp
 bDEPS=$(addprefix ../,$(bD))
 
 cD=
@@ -19,14 +19,14 @@ all: app
 
 
 app: app.cc $(aDEPS) $(bDEPS) $(cDEPS)
-	$(CC) $(LF) app.cc -o app
+	$(CC) $(LF) app.cc -o _app
 
 old: 
 	touch app.cc
 
 pgapp: 
-	$(CC) $(LF) -pg app.cc -o app; ./app ; gprof ./app > gp.out
+	$(CC) $(LF) -pg app.cc -o _app; ./_app ; gprof ./_app > gp.out
 
 
 clean:
-	rm -f app
+	rm -f _app

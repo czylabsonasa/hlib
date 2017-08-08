@@ -2,8 +2,9 @@
   testing the cluster header against given networks.
 *  [[./app.cc][app source]]
 *  [[../inc.h][inc]]
-*  [[../utils.h][utils]]
+*  [[../utils.hpp][utils]]
 *  [[../cluster.h][cluster]]
 *  [[../graph.h][graph]]
 *  [[../destat.h][destat]]
+*  [[./makefile][makefile]]
 *  [[./ccstuff.R][ccstuff in R]]
