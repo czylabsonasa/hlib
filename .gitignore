@@ -1,6 +1,5 @@
 _*
-*/app
-*list
-*res
+*~
+.Rdata
 *.pdf
 *.out
