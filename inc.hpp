@@ -30,5 +30,6 @@ struct tII{int x;int y;};
 struct tIID{int x;int y;double w;};
 typedef long long int LLI;
 typedef int* pI;
+typedef enum{NONE,PARTIAL,FULL,INIT,CUSTOM,MEAN,MEDIAN,SPARSE,DENSE,iRDC,dRDC,d2RDC} tModes;
 
 #endif

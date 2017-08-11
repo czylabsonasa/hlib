@@ -1,0 +1,11 @@
+* Diam
+  testing the diam header against given networks.
+*  [[./app.cc][app source]] 
+*  [[./app2.cc][app2 source]]
+*  [[../diam.hpp][diam]]
+*  [[../graph.hpp][graph]]
+*  [[../inc.hpp][inc]]
+*  [[../utils.hpp][utils]]
+*  [[../destat.hpp][destat]]
+*  [[./makefile][makefile]]
+*  [[../Rlang/graphstuff.R][graphstuff in R]]

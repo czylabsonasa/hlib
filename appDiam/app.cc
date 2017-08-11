@@ -1,50 +1,59 @@
-//csillagos modell cluster app.
-#include "common.hpp"
+//diam app
+#include "inc.hpp"
+#include "utils.hpp"
 #include "graph.hpp"
-#include "cluster.hpp"
-#include "csillagos.hpp"
-#include "tartaly.hpp"
 #include "diam.hpp"
 
-int main(){
-   mrand::init(-1);// /dev/urandom
+int main(int np,char**p){
 
-   csillagosInfo csi;
-   aTartaly T(int(csi.LEPES*csi.P*csi.NCSM));
-   csillagos CS(csi,T);
-
-
-   FILE*fdeg=fopen("degres","a");
-   FILE*fclus=fopen("clusres","a");
-   FILE*fdiam=fopen("diamres","a");
-
-printf("ISM=%d\n",csi.ISM);
-
-   for(int ism=0;ism<csi.ISM;ism++){
-      CS.clear();
-      CS.step1();
-      CS.gen();
-      CS.write();      
-      graph G(csi.NV,T);
-      destat ds;
-
-      ds.comp(G.deg,1,G.NV+1);
-      ds.write(fdeg);
-
-      cluster cla(G.NV+1);
-
-      graph rG(G.NV,G.NE); cla.g2rg(G,rG);
-      
-      cla.coeffR(rG, G.deg);
-      ds.comp(cla.lcc, 1, G.NV+1);
-      ds.write(fclus);
-      ds.write("cluster:");
+	tik();
+   vector<tII> elist;
+	//read the edgelist from command line given file
+   readelist(p[1], elist); 
+   graph G; G.init(elist);
+   destat ds;
+   ds.comp(G.deg);
+   write(ds,"G.deg");
+   _LOG(_ERR("********* build graph from elist: %lf sec\n",tak()));
 
 
+	diam dm; dm.init(&G);
 
-   }
-   
-   fclose(fdeg);
-   fclose(fclus);
+	// tik();
+	// printf("diam=%d\n",dm.bruteforce());
+   // _LOG(_ERR("********* diam, bruteforce: %lf sec\n",tak()));
+
+	// tik();
+	// dm.initLU();
+	// printf("diam=%d\n",dm.bruteforce2());
+   // _LOG(_ERR("********* diam, bruteforce2: %lf sec\n",tak()));
+
+
+	// tik();
+	// dm.initLU();
+	// printf("diam=%d\n",dm.ifub(G.V/2));
+   // _LOG(_ERR("********* diam, ifub: %lf sec\n",tak()));
+
+	
+	// tik();
+	// dm.initLU();
+	// printf("diam=%d\n",dm.ifub(dm.maxselect()));
+	// //printf("diam=%d\n",dm.ifub(dm.sweep2(1)));
+
+	tik();
+	dm.initLU();
+	int a=dm.maxselect();
+	int da=G.deg[a];
+	printf("start point:  node,deg=%d,%d\n",a,da);
+	
+	//	dm.sweep2(dm.sweep2(dm.sweep2(1)));
+	printf("diam=%d\n",dm.ifub(dm.maxselect()));
+	_LOG(_ERR("********* diam, ifub+sweep2: %lf sec\n",tak()));
+	//	printf("%d %d\n",dm.L,dm.U);
+
+
+	
+
+
    return 0;
 }

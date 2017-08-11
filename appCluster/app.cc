@@ -1,4 +1,5 @@
 //cluster app
+// iRDC a nyero
 #include "inc.hpp"
 #include "utils.hpp"
 #include "graph.hpp"
@@ -30,7 +31,7 @@ int main(int np,char**p){
 	{
 		tik();
 		cla.coeffR2(G, G.deg);
-		_LOG(_ERR("vanilla R2 coeff+mean: %lf sec\n",tak()));
+		_LOG(_ERR("R2 coeff+mean: %lf sec\n",tak()));
 	}
 
 	

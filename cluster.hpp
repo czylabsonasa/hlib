@@ -108,23 +108,29 @@ void cluster::countR(const graph& rG){//
 void cluster::countR2(const graph& G){//numtri[idx]: num of triangles centered at idx
 	init(G.V);
 	for(int s=1;s<=G.V;s++){
-		if(G.deg[s]<2){
+		int const ds(G.deg[s]);
+		if(ds<2){
 			continue;
 		}
+		
 		auto it=G.adj[s];
 		while(it!=nullptr){
-			volt[it->t]=true;
+			if(ds>G.deg[it->t]){
+				volt[it->t]=true;
+			}
 			it=(it->nxt);
 		}
 		int& nt(numtri[s]);
 		it=G.adj[s];
 		while(it!=nullptr){
-			auto ti=G.adj[it->t];
-			while(ti!=nullptr){
-				if(volt[ti->t]){++nt;}
-				ti=(ti->nxt);
+			if(ds>G.deg[it->t]){
+				auto ti=G.adj[it->t];
+				while(ti!=nullptr){
+					if(volt[ti->t]){++nt;}
+					ti=(ti->nxt);
+				}
+				volt[it->t]=false;
 			}
-			volt[it->t]=false;
 			it=(it->nxt);
 		}
 	}
@@ -150,7 +156,8 @@ void cluster::coeffR(const graph& rG,const tVI& deg){//lcc: local clustering coe
 }
 
 
-//a naivecountR-nak megfeleloen a local clustering coefficient vectort szamolja
+//a naivecount-nak megfeleloen a local clustering coefficient vectort szamolja,
+// de az eredeti G-t használja
 void cluster::coeffR2(const graph& G,const tVI& deg){//lcc: local clustering coeff, reduced graph!!!
 	countR2(G);
 	for(int s=1;s<=V;s++){

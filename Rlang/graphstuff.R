@@ -10,3 +10,6 @@ ccf<-function(g){
   # function: because of a hard to remember options
   ccf<-mean(transitivity(g,type='local',isolates = "zero"));
 }
+
+# system.time(res<-diameter(g,directed = FALSE,unconnected = FALSE))
+# specifying undirected and connected doesnt nake faster

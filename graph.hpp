@@ -6,8 +6,6 @@
 // -- declarations ---
 
 //RDC: from adj[s] only some of the neighbours are taken iRDC:only smaller idx, dRDC only neighbours with a specific deg
-enum tMode{FULL, iRDC, dRDC, d2RDC};
-
 struct graph{
    struct tINFO{int t; tINFO* nxt;};
    int V,E,iE;
@@ -17,8 +15,8 @@ struct graph{
 	tVI deg2;
 
    graph(int=0, int=0);
-   void init(int, int, tMode=FULL);
-	void init(const graph&, tMode);
+   void init(int, int, tModes=FULL);
+	void init(const graph&, tModes);
    void init(int, const aTartaly&);
 	void init(const vector<tII>&);
 	void insertU(int, int);
@@ -40,7 +38,7 @@ graph genStar(int);
 // internal method defs
 graph::graph(int _V,int _E):V(_V),E(_E){}
   
-void graph::init(int _V, int _E,tMode mode){
+void graph::init(int _V, int _E,tModes mode){
 	V=_V;
    E=_E;
    adj.resize(V+1);
@@ -55,7 +53,7 @@ void graph::init(int _V, int _E,tMode mode){
    iE=0;
 }
    
-void graph::init(const graph& G, tMode mode){
+void graph::init(const graph& G, tModes mode){
    if(iRDC==mode){
       init(G.V,G.E,mode);
       for(int s=1;s<=G.V;s++){
