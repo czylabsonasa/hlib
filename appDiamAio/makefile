@@ -5,7 +5,7 @@ WR=-Wall
 CF=$(WR) 
 LF=$(WR) -I..
 
-aD=diam.hpp
+aD=diamaio.hpp
 aDEPS=$(addprefix ../,$(aD))
 
 bD=common.hpp inc.hpp mrand.hpp utils.hpp destat.hpp

@@ -2,7 +2,7 @@
 #include "inc.hpp"
 #include "utils.hpp"
 #include "graph.hpp"
-#include "diam.hpp"
+#include "diamaio.hpp"
 #include "artipt.hpp"
 
 int main(int np,char**p){
@@ -31,7 +31,7 @@ int main(int np,char**p){
 	printf("start point:  node,deg=%d,%d\n",a,da);
 	//	return 0;
 	
-	diam dm; dm.init(&G);
+	tDiamAio dm; dm.init(&G);
 
 	tik();
 	dm.initLU();

@@ -2,7 +2,7 @@
 #include "inc.hpp"
 #include "utils.hpp"
 #include "graph.hpp"
-#include "diam.hpp"
+#include "diamaio.hpp"
 
 int main(int np,char**p){
 
@@ -17,7 +17,7 @@ int main(int np,char**p){
    _LOG(_ERR("********* build graph from elist: %lf sec\n",tak()));
 
 
-	diam dm; dm.init(&G);
+	tDiamAio dm; dm.init(&G);
 
 	// tik();
 	// printf("diam=%d\n",dm.bruteforce());
@@ -40,17 +40,29 @@ int main(int np,char**p){
 	// printf("diam=%d\n",dm.ifub(dm.maxselect()));
 	// //printf("diam=%d\n",dm.ifub(dm.sweep2(1)));
 
-	tik();
-	dm.initLU();
-	int a=dm.maxselect();
-	int da=G.deg[a];
-	printf("start point:  node,deg=%d,%d\n",a,da);
+	{
+		tik();
+		dm.initLU();
+		int a=dm.maxselect();
+		int da=G.deg[a];
+		printf("start point:  node,deg=%d,%d\n",a,da);
 	
-	//	dm.sweep2(dm.sweep2(dm.sweep2(1)));
-	printf("diam=%d\n",dm.ifub(dm.maxselect()));
-	_LOG(_ERR("********* diam, ifub+sweep2: %lf sec\n",tak()));
-	//	printf("%d %d\n",dm.L,dm.U);
-
+		//	dm.sweep2(dm.sweep2(dm.sweep2(1)));
+		printf("diam=%d\n",dm.ifub(dm.maxselect()));
+		_LOG(_ERR("********* diam, ifub+sweep2: %lf sec\n",tak()));
+		//	printf("%d %d\n",dm.L,dm.U);
+	}
+	{
+		tik();
+		dm.initLU();
+		int a=dm.maxselect();
+		int da=G.deg[a];
+		printf("start point:  node,deg=%d,%d\n",a,da);
+	
+		//	dm.sweep2(dm.sweep2(dm.sweep2(1)));
+		printf("diam=%d\n",dm.ifubv2(dm.maxselect()));
+		_LOG(_ERR("********* diam, ifub+sweep2+new: %lf sec\n",tak()));
+	}
 
 	
 

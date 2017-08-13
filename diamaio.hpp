@@ -1,18 +1,21 @@
-#ifndef __DIAM_H__
-#define __DIAM_H__
+//diam All in One
+//does not handle properly disconnected graphs (pl. flickr at conect,snap)
+#ifndef __DIAMAIO_H__
+#define __DIAMAIO_H__
 #include "inc.hpp"
 #include "mrand.hpp"
 
 //declare
 
 //the diam struct
-struct diam{
+struct tDiamAio{
 	int V;
 	int L,U;
    int INF;//beware of overflow :-)
    int numofbfs;
 	graph* G;
    tVI dist[2],q[2],from[2]; //dist,queue,from
+	tVI v2; //helper vector for ifubv2
 	void init(graph*);//resizing vectors
 	void initLU();//set init values 
 	//all bfs version returns the farthest node 
@@ -27,6 +30,8 @@ struct diam{
 
    int sweep2(int);//sweep2 egy csucsbol
 	int ifub(int);
+	int ifubv2(int);// additional update of U
+	int v2Helper(tVI&,tVI&,int);
 	int rndselect();
 	int minselect();
 	int maxselect();
@@ -35,8 +40,9 @@ struct diam{
 
 
 // define
+
 // general init
-void diam::init(graph* _G){
+void tDiamAio::init(graph* _G){
 	G=_G;
 	V=G->V;
 	INF=V+11;
@@ -46,17 +52,18 @@ void diam::init(graph* _G){
 	q[1].resize(V+1);
 	from[0].resize(V+1);
 	from[1].resize(V+1);
+	v2.resize(V+1);
 }
 
 
 //init L and U
-void diam::initLU(){
+void tDiamAio::initLU(){
 	L=1;U=V-1; //assuming connected non-degenerate graph
 }
 
 
 // sweep2
-int diam::sweep2(int a){
+int tDiamAio::sweep2(int a){
 	bfs(a,q[0],dist[0],from[0]);
 	int win=0;//which one is a winner
 	int mx=dist[0][q[0][V-1]];
@@ -79,87 +86,93 @@ int diam::sweep2(int a){
 }
 
 
-// // ifub
-// int diam::ifub(int s){
-// 	tVI& q0(q[0]);tVI& d0(dist[0]);
-// 	tVI& q1(q[1]);tVI& d1(dist[1]);
-
-// 	//	printf("prev   L,U:%d,%d\n",L,U);
-// 	s=bfs(s,q0,d0);
-// 	U=min(U,2*d0[s]);
-// 	L=max(L,d0[s]);
-// 	//printf("szar?  :%d %d\n",q0[V-1],d0[q0[V-1]]);
-
-// 	//printf("prev   L,U:%d,%d\n",L,U);
-
-// 	int tL=1;
-// 	int tU=V-1;
-
-// 	int i=V-1;
-// 	int pd=INF;
-// 	while(i>0 && U>L){
-// 		int d=d0[q0[i]];
-// 		if(d<pd){//level change
-// 			tU=min(tU,max(tL,2*d));
-// 			//		printf("tU:%d\n",tU)			;
-// 			pd=d;
-// 		}
-
-// 		int td=d1[bfs(q0[i],q1,d1)];
-// 		tU=min(tU,2*td);
-// 		tL=max(tL,td);
-// 		//		printf("tL,tU:%d,%d\n",tL,tU)			;
-
-// 		U=min(U,tU);
-// 		L=max(L,tL);
-		
-		
-// 		i--;
-// 	}
-// 	printf("%d\n",i);
-// 	return L;
-// }//ifub
-
-
 // ifub
-int diam::ifub(int s){
+int tDiamAio::ifub(int s){
 	tVI& q0(q[0]);tVI& d0(dist[0]);
 	tVI& q1(q[1]);tVI& d1(dist[1]);
 
-	//	printf("prev   L,U:%d,%d\n",L,U);
-	s=bfs(s,q0,d0);
-	U=min(U,2*d0[s]);
-	L=max(L,d0[s]);
-	//printf("szar?  :%d %d\n",q0[V-1],d0[q0[V-1]]);
+	int i=bfs(s,q0,d0);
+	s=d0[q0[i-1]];
+	U=min(U,2*s);
+	L=max(L,s);
 
-	//printf("prev   L,U:%d,%d\n",L,U);
-
-	int i=V-1;
-	int pd=INF;
+	int ph=INF;
+	i=i-1;
 	while(i>0 && U>L){
-		int d=d0[q0[i]];
-		if(d<pd){//level change
-			if(L>=2*d){break;}
-			pd=d;
+		int h=d0[q0[i]];
+		if(h<ph){//level change
+			if(L>=2*h){break;}
+			ph=h;
+			U=2*h;//indirekt
 		}
 
-		int td=d1[bfs(q0[i],q1,d1)];
-		if(2*td<U){printf("*\n");}
-		U=min(U,2*td);
-		L=max(L,td);
-		//		printf("tL,tU:%d,%d\n",tL,tU)			;
+		int th=d1[q1[bfs(q0[i],q1,d1)-1]];
+		//		if(2*th<U){printf("*\n");} 
+		U=min(U,2*th);
+		L=max(L,th);
 
-	
 		i--;
 	}
-	printf("%d\n",i);
+	printf("end: %d\n",i);
 	return L;
 }//ifub
 
 
+//helper for ifubv2
+int tDiamAio::v2Helper(tVI& tq, tVI& tf,int tail){
+	tVI& d(v2);
+	fill(d.begin(),d.end(),0);
+	
+	int tU=0;
+	--tail;
+	while(tail>0){
+		int a=tq[tail--];
+		int& dfa(d[tf[a]]);
+		int td=d[a]+1;
+		tU=max(tU,td+dfa);
+		dfa=max(dfa,td);
+	}
+	return tU;
+}
 
-// single source bfs, return the farthest node
-int diam::bfs(int a,tVI& tq,tVI& td,tVI& tfr){
+
+// ifubv2, does not matter (slower)
+int tDiamAio::ifubv2(int s){
+	tVI& q0(q[0]);tVI& d0(dist[0]);tVI& f0(from[0]);
+	tVI& q1(q[1]);tVI& d1(dist[1]);tVI& f1(from[0]);
+
+	int tail=bfs(s,q0,d0,f0);
+	s=d0[q0[tail-1]];
+	U=min(U,2*s);
+	U=min(U,v2Helper(q0,f0,tail));//new
+	L=max(L,s);
+
+	int i=tail-1;
+	int ph=INF;
+	while(i>0 && U>L){
+		int h=d0[q0[i]];
+		if(h<ph){//level change
+			if(L>=2*h){break;}
+			ph=h;
+			U=2*h;//indirekt
+		}
+
+		int th=d1[q1[bfs(q0[i],q1,d1,f1)-1]];
+		//		if(2*th<U){printf("*\n");} 
+		U=min(U,2*th);
+		U=min(U,v2Helper(q1,f1,tail));//new
+		L=max(L,th);
+
+		i--;
+	}
+	printf("end: %d\n",i);
+	
+	return L;
+}//ifubv2
+
+
+// single source bfs (from), returns the tail, ie. the size of the actual component
+int tDiamAio::bfs(int a,tVI& tq,tVI& td,tVI& tfr){
 	++numofbfs;
 	fill(td.begin(), td.end(), INF);
 
@@ -181,12 +194,13 @@ int diam::bfs(int a,tVI& tq,tVI& td,tVI& tfr){
 			it=(it->nxt);
 		}
 	}//queue
-	return tq[tail-1];
+	//	printf("tail: %d\n",tail);
+	return tail;
 }
 
 
-// single source bfs, w/o from, return the index of the farthest node
-int diam::bfs(int a, tVI& tq, tVI& td){
+// single source bfs, w/o from, return the tail, ie. the size of the actual component
+int tDiamAio::bfs(int a, tVI& tq, tVI& td){
 	++numofbfs;
 	fill(td.begin(), td.end(), INF);
 
@@ -207,12 +221,14 @@ int diam::bfs(int a, tVI& tq, tVI& td){
 			it=(it->nxt);
 		}
 	}//queue
-	return tq[tail-1];
+	//	printf("tail: %d\n",tail);
+
+	return tail;
 }
 
 
 // multiple source bfs
-int diam::bfs(tVI& tmp,tVI& tq,tVI& td,tVI& tfr){
+int tDiamAio::bfs(tVI& tmp,tVI& tq,tVI& td,tVI& tfr){
 	++numofbfs;
 	fill(td.begin(), td.end(), INF);
 	int head=0,tail=0;
@@ -240,7 +256,7 @@ int diam::bfs(tVI& tmp,tVI& tq,tVI& td,tVI& tfr){
 
 
 // multiple source bfs w/o from
-int diam::bfs(tVI& tmp,tVI& tq,tVI& td){
+int tDiamAio::bfs(tVI& tmp,tVI& tq,tVI& td){
 	++numofbfs;
 	fill(td.begin(), td.end(), INF);
 	int head=0,tail=0;
@@ -261,11 +277,12 @@ int diam::bfs(tVI& tmp,tVI& tq,tVI& td){
 			it=it->nxt;
 		}
 	}//queue
-	return tq[tail-1];}
+	return tq[tail-1];
+}
 
 
-// brute-force diam
-int diam::bruteforce(){//brute force,for connected graphs
+// brute-force tDiamAio
+int tDiamAio::bruteforce(){//brute force,for connected graphs
 	int mx=0;
 	tVI& q0(q[0]);tVI& d0(dist[0]);tVI& f0(from[0]);
 	for(int a=1;a<=V;a++){
@@ -273,12 +290,12 @@ int diam::bruteforce(){//brute force,for connected graphs
 		mx=max(mx,d0[q0[V-1]]);
 	}
 	return mx;
-}//bfdiam
+}//bftDiamAio
 
 
-// brute-force diam, variant that uses and updates L,U
+// brute-force tDiamAio, variant that uses and updates L,U
 // no gain
-int diam::bruteforce2(){//brute force,for connected graphs
+int tDiamAio::bruteforce2(){//brute force,for connected graphs
 	tVI& q0(q[0]);tVI& d0(dist[0]);tVI& f0(from[0]);
 	for(int a=1;a<=V&&U>L;a++){
 		bfs(a,q0,d0,f0);
@@ -286,11 +303,11 @@ int diam::bruteforce2(){//brute force,for connected graphs
 		U=min(U,2*d0[q0[V-1]]);
 	}
 	return L;
-}//bfdiam
+}//bftDiamAio
 
 
 // mindeg
-int diam::minselect(){
+int tDiamAio::minselect(){
 	auto deg(G->deg);
 	int val=deg[1],loc=1;
 	for(int i=2;i<=V;i++){
@@ -303,7 +320,7 @@ int diam::minselect(){
 
 
 // maxdeg
-int diam::maxselect(){
+int tDiamAio::maxselect(){
 	auto deg(G->deg);
 	int val=deg[1],loc=1;
 	for(int i=2;i<=V;i++){
@@ -316,11 +333,10 @@ int diam::maxselect(){
 
    
 // select a random number in 1..V   
-int diam::rndselect(){
+int tDiamAio::rndselect(){
 //_LOG(_ERR("( unif.random node selection ) "));
    return mrand::IRND(1,V);
 }
-
 
 
 #endif

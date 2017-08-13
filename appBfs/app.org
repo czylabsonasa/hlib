@@ -1,10 +1,11 @@
-* Cluster
-  testing the cluster header against given networks.
+* Bfs
+  testing the bfs header against given networks.
 *  [[./app.cc][app source]]
+*  [[../bfs.hpp][bfs]]
+*  [[../diamaio.hpp][diam all in one]]
+	for verifying
 *  [[../inc.hpp][inc]]
 *  [[../utils.hpp][utils]]
-*  [[../cluster.hpp][cluster]]
 *  [[../graph.hpp][graph]]
-*  [[../destat.hpp][destat]]
 *  [[./makefile][makefile]]
 *  [[../Rlang/graphstuff.R][graphstuff in R]]

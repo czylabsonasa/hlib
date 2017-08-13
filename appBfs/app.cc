@@ -3,7 +3,7 @@
 #include "utils.hpp"
 #include "graph.hpp"
 #include "bfs.hpp"
-#include "diam.hpp"
+#include "diamaio.hpp"
 
 int main(int np,char**p){
 
@@ -21,7 +21,7 @@ int main(int np,char**p){
 	
 
 	{
-		diam dm; dm.init(&G);
+		tDiamAio dm; dm.init(&G);
 		tik();
 		printf("diam=%d\n",dm.bruteforce());
 		_LOG(_ERR("********* diam, bruteforce: %lf sec\n",tak()));
