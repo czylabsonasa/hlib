@@ -125,6 +125,16 @@ void write(double* _b, double* const _e,int const prec=3){
 }
 
 
+void writeVector(const tVI& v, const char*fn){
+	FILE*fp=fopen(fn,"w");
+	int const N=v.size();
+   for(int i=0;i<N;i++){
+		fprintf(fp,"%d %d\n", i, v[i]);
+   }
+	fclose(fp);
+}
+
+
 
 
 void write(vector<tII>& elek,const char* const fname){
@@ -135,19 +145,23 @@ void write(vector<tII>& elek,const char* const fname){
    fclose(fp);
 }
 
-void readelist(const char* const fname, vector<tII>& elek){
+void readElist(const char* const fname, vector<tII>& elek){
    FILE*fp=fopen(fname,"r");
-   int NE,NV;fscanf(fp,"%d%d",&NV,&NE);
-   elek.resize(NE+1);
-   elek[0].x=NV;elek[0].y=NE;
-   for(int i=1;i<=NE;i++){
+	if(fp==nullptr){
+		fprintf(stderr,"file error\n");
+		exit(1);
+	}
+   int V,E;fscanf(fp,"%d%d",&V,&E);
+   elek.resize(E+1);
+   elek[0].x=V;elek[0].y=E;
+   for(int i=1;i<=E;i++){
       int x,y;fscanf(fp,"%d%d",&x,&y);
       elek[i].x=x;elek[i].y=y;
    }
    fclose(fp);
 }
 
-void readelist(FILE*fp, vector<tII>& elek){//for multiple reading
+void readElist(FILE*fp, vector<tII>& elek){//for multiple reading
    int V,E;fscanf(fp,"%d%d",&V,&E);
    elek.resize(E+1);
    elek[0].x=V;elek[0].y=E;
@@ -167,7 +181,7 @@ void readVector(FILE*fp, vector<double>& x,int const s=1){//for multiple reading
 }
 
 
-int rangemin(pI beg, pI end){
+int rangeMin(pI beg, pI end){
    int ans=*beg;
    while(++beg<end){
       ans=min(ans,*beg);

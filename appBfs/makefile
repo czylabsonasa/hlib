@@ -14,14 +14,13 @@ bDEPS=$(addprefix ../,$(bD))
 cD=graph.hpp tartaly.hpp treap.hpp
 cDEPS=$(addprefix ../,$(cD))
 
-default:all
-all: app
+default:_app
 
-%: %.cc $(DEPS)
-	$(CC) $(LF) $< -o _$@
+#%: %.cc $(DEPS)
+#	$(CC) $(LF) $< -o _$@
 
-#app: app.cc $(aDEPS) $(bDEPS) $(cDEPS)
-#	$(CC) $(LF) app.cc -o _app
+_app: app.cc $(aDEPS) $(bDEPS) $(cDEPS)
+	$(CC) $(LF) app.cc -o _app
 
 pgapp: 
 	$(CC) $(LF) -pg app.cc -o _app; ./_app ; gprof ./_app > _gp.out

@@ -75,7 +75,7 @@ struct erdosrenyi{
          elek.push_back(tII{int(kth-(LLI(lth)*LLI(lth-1))/2),lth+1});
          kth++;
       }
-      elek[0].y=elek.size()-1;//0th slot: NV,NE
+      elek[0].y=elek.size()-1;//0th slot:.V,NE
       write(elek);
    }
 

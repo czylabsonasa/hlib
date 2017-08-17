@@ -7,7 +7,7 @@ int main(int np,char**p){
 
 tik();
    vector<tII> elist;
-   readelist(p[1], elist);
+   readElist(p[1], elist);
 
    graph G; G.init(elist);
 

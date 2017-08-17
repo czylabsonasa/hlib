@@ -10,9 +10,9 @@ struct destat{
 	//the range is 1.._N:
 	int _N;
 	//only fill v
-   template<typename T> void comp(const vector<T>&);
-	void comp();
-	template<typename T> const vector<double>& freq(const vector<T>&);
+   template<typename T> void comp(const vector<T>&,const int=1);
+	void comp(const int);
+	template<typename T> const vector<double>& freq(const vector<T>&,const int=1);
 };
 
 
@@ -22,7 +22,7 @@ void write(const destat&, FILE*);//write to a file given by handler
 //////////////////////////////////////////////////////////
 
 // --- method defs ---
-template<typename T> void destat::comp(const vector<T>& v){
+template<typename T> void destat::comp(const vector<T>& v,const int s){//base,default 1
    _N=v.size()-1;//0 is unused
 	if(_N<1){
 		_sigma=_mean=-1;
@@ -30,13 +30,13 @@ template<typename T> void destat::comp(const vector<T>& v){
 	}
 	_v.resize(_N+1);
 	copy(v.begin(),v.end(),_v.begin());
-	comp();
+	comp(s);
 }
 
-void destat::comp(){
-   _min=_max=_v[1]; 
+void destat::comp(const int s){
+   _min=_max=_v[s]; 
    _mean=0.0;_sigma=0.0;
-   for(int i=1;i<=_N;i++){
+   for(int i=s;i<=_N;i++){
 		double vi=_v[i];
 		if(vi>_max){_max=vi;}
 		if(vi<_min){_min=vi;}
@@ -44,16 +44,16 @@ void destat::comp(){
 		_sigma+=vi*vi;
 	}
 	_R=_max-_min;
-	_mean=_mean/double(_N);
-	_sigma=sqrt(_sigma/double(_N)-_mean*_mean);
+	_mean=_mean/double(_N+1-s);
+	_sigma=sqrt(_sigma/double(_N+1-s)-_mean*_mean);
 }
 
 //comp is executed before, only calling with vector<int> is
 // meningful
-template<typename T> const vector<double>& destat::freq(const vector<T>& v){
+template<typename T> const vector<double>& destat::freq(const vector<T>& v,const int s){
 	_v.resize(1+int(_max));
 	fill(_v.begin(),_v.end(),0.0);
-	for(int i=1;i<=_N;i++){
+	for(int i=s;i<=_N;i++){
 		int vi=int(v[i]);
 		_v[vi]=_v[vi]+1.0;
 	}

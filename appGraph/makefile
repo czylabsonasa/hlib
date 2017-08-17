@@ -14,8 +14,7 @@ bDEPS=$(addprefix ../,$(bD))
 cD=graph.hpp tartaly.hpp treap.hpp
 cDEPS=$(addprefix ../,$(cD))
 
-default:all
-all: _app
+default:_app
 
 
 _app: app.cc $(aDEPS) $(bDEPS) $(cDEPS)

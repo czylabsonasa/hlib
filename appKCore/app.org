@@ -1,0 +1,11 @@
+* KCore
+  testing the kcore header against given networks.
+*  [[./app.cc][app source]]
+*  [[../kcore.hpp][kcore]]
+*  [[../dlist.hpp][dlist]]
+*  [[../inc.hpp][inc]]
+*  [[../utils.hpp][utils]]
+*  [[../graph.hpp][graph]]
+*  [[../destat.hpp][destat]]
+*  [[./makefile][makefile]]
+*  [[../Rlang/graphstuff.R][graphstuff in R]]

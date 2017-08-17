@@ -1,4 +1,4 @@
-//diam app
+//diam app, articulation point as starting node
 #include "inc.hpp"
 #include "utils.hpp"
 #include "graph.hpp"
@@ -10,7 +10,7 @@ int main(int np,char**p){
 	tik();
    vector<tII> elist;
 	//read the edgelist from command line given file
-   readelist(p[1], elist); 
+   readElist(p[1], elist); 
    graph G; G.init(elist);
    destat ds;
    ds.comp(G.deg);

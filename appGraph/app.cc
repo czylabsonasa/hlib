@@ -12,7 +12,7 @@ int main(){
 	int esetek;
 	fscanf(ifp,"%d",&esetek);
 	for(int es=0;es<esetek;es++){
-		readelist(ifp, elist); //read from file
+		readElist(ifp, elist); //read from file
 		G.init(elist); //setting up the graph from the edge-list
 		
 		ds.comp(G.deg);

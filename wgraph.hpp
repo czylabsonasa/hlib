@@ -4,18 +4,19 @@
 #include "inc.hpp"
 
 struct wgraph{
-   struct tINFO{int t;double w;tINFO* nxt;};
+   struct tINFO{int t;double w;tINFO* next;};
    int NV;
    int NE,aE;
    vector<tINFO*> adj;
    vector<tINFO> tar;//idx=0 unused (sentinel)
    tVI deg;
-   wgraph(int _NV,int _NE):NV(_NV),NE(_NE),adj(NV+1),tar(2*NE+9),deg(NV+1){
+   wgraph(int _NV,int _NE):NV(_NV),NE(_NE),adj(NV+1),tar(2*NE+9),
+									deg(NV+1){
       aE=0;
    }
 
-//    wgraph(graph _G):NV(_G.NV),adj(NV+1),deg(_G.deg){
-//       for(int s=1;s<=NV;s++){
+//    wgraph(graph _G).V(_G.V),adj.V+1),deg(_G.deg){
+//       for(int s=1;s<.V;s++){
 //          const auto _B(_G.adj[s].begin());
 //          const auto _E(_G.adj[s].end());
 //          for(auto it=_B;it!=_E;it++){
@@ -24,7 +25,7 @@ struct wgraph{
 //          }
 //       }
 //    }
-//    wgraph(int _NV,const aTartaly& tar):NV(_NV),adj(NV+1),deg(NV+1){
+//    wgraph(int .V,const aTartaly& tar).V(.V),adj.V+1),deg.V+1){
 //       const auto _B(tar.tar.begin());
 //       const auto _E(tar.tar.end());
 //       for(auto it=_B;it!=_E;it++){

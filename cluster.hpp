@@ -50,7 +50,7 @@ void cluster::count(const graph& G){//numtri[idx]: num of triangles centered at 
 		auto it=G.adj[s];
 		while(it!=nullptr){
 			volt[it->t]=true;
-			it=(it->nxt);
+			it=(it->next);
 		}
 		int& nt(numtri[s]);
 		it=G.adj[s];
@@ -58,10 +58,10 @@ void cluster::count(const graph& G){//numtri[idx]: num of triangles centered at 
 			auto ti=G.adj[it->t];
 			while(ti!=nullptr){
 				if(volt[ti->t]){++nt;}
-				ti=(ti->nxt);
+				ti=(ti->next);
 			}
 			volt[it->t]=false;
-			it=(it->nxt);
+			it=(it->next);
 		}
 	}
 }
@@ -80,7 +80,7 @@ void cluster::countR(const graph& rG){//
 		auto it=adj[s];
 		while(it!=nullptr){
 			volt[it->t]=true;
-			it=(it->nxt);
+			it=(it->next);
 		}
 
 		it=adj[s];
@@ -92,14 +92,14 @@ void cluster::countR(const graph& rG){//
 					++numtri[it->t];
 					++numtri[ti->t];
 				}
-				ti=(ti->nxt);
+				ti=(ti->next);
 			}
-			it=(it->nxt);
+			it=(it->next);
 		}
 		it=adj[s];
 		while(it!=nullptr){
 			volt[it->t]=false;
-			it=(it->nxt);
+			it=(it->next);
 		}
 	}
 }
@@ -118,7 +118,7 @@ void cluster::countR2(const graph& G){//numtri[idx]: num of triangles centered a
 			if(ds>G.deg[it->t]){
 				volt[it->t]=true;
 			}
-			it=(it->nxt);
+			it=(it->next);
 		}
 		int& nt(numtri[s]);
 		it=G.adj[s];
@@ -127,11 +127,11 @@ void cluster::countR2(const graph& G){//numtri[idx]: num of triangles centered a
 				auto ti=G.adj[it->t];
 				while(ti!=nullptr){
 					if(volt[ti->t]){++nt;}
-					ti=(ti->nxt);
+					ti=(ti->next);
 				}
 				volt[it->t]=false;
 			}
-			it=(it->nxt);
+			it=(it->next);
 		}
 	}
 }

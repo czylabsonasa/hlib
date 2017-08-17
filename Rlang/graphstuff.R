@@ -13,3 +13,6 @@ ccf<-function(g){
 
 # system.time(res<-diameter(g,directed = FALSE,unconnected = FALSE))
 # specifying undirected and connected doesnt nake faster
+crn<-coreness(g,mode = 'all')
+mx=max(crn);
+res<-hist(crn,breaks = -1:mx)$counts

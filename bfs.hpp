@@ -77,7 +77,7 @@ int tBfs::operator()(){
 					que[tail++]=b;
 					from[b]=a;
 				}
-				it=(it->nxt);
+				it=(it->next);
 			}
 		}//queue
 	}else{
@@ -91,7 +91,7 @@ int tBfs::operator()(){
 					dist[b]=da;
 					que[tail++]=b;
 				}
-				it=(it->nxt);
+				it=(it->next);
 			}
 		}//queue
 	}

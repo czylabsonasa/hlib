@@ -57,7 +57,7 @@ struct pagerank{
          while(it!=nullptr){
             WG.insertD(s,it->t,1.0/double(deg[it->t]));
    //         WG.insertD(*it,s,1.0/double(deg[s]));
-            it=(it->nxt);
+            it=(it->next);
          }
       }
 //for(int i=1;i<=G.V;i++){printf("%d ",WG.deg[i]);}printf("\n");
@@ -86,7 +86,7 @@ struct pagerank{
             auto it=WG.adj[s];//going through the neighbours
             while(it!=nullptr){
                tmp+=xx[it->t]*(it->w);
-               it=it->nxt;
+               it=it->next;
             }
             x[s]+=D*tmp;
          }

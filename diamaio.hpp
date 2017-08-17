@@ -1,5 +1,8 @@
 //diam All in One
-//does not handle properly disconnected graphs (pl. flickr at conect,snap)
+//does not handle properly disconnected graphs without additional work
+// partial fix: change 'V' to 'tail' returned by bfs
+// flickr at conect,snap
+
 #ifndef __DIAMAIO_H__
 #define __DIAMAIO_H__
 #include "inc.hpp"
@@ -25,16 +28,16 @@ struct tDiamAio{
 	int bfs(tVI&, tVI&, tVI&, tVI&);//more than one source
 	int bfs(tVI&, tVI&, tVI&);//more than one source w/o from
 
-   int bruteforce();//brute force,for connected graphs
-   int bruteforce2();//brute force,for connected graphs, adjust LU
+   int bruteForce();//brute force,for connected graphs
+   int bruteForce2();//brute force,for connected graphs, adjust LU
 
    int sweep2(int);//sweep2 egy csucsbol
 	int ifub(int);
-	int ifubv2(int);// additional update of U
-	int v2Helper(tVI&,tVI&,int);
-	int rndselect();
-	int minselect();
-	int maxselect();
+	int ifubV2(int);// additional update of U
+	int treeDiam(tVI&,tVI&,int);
+	int rndSelect();
+	int minSelect();
+	int maxSelect();
 
 };
 
@@ -64,21 +67,24 @@ void tDiamAio::initLU(){
 
 // sweep2
 int tDiamAio::sweep2(int a){
-	bfs(a,q[0],dist[0],from[0]);
+	int tail=bfs(a,q[0],dist[0],from[0]);//tail: CC size
 	int win=0;//which one is a winner
-	int mx=dist[0][q[0][V-1]];
+	int mx=dist[0][q[0][tail-1]];
 	L=max(L,mx);U=min(U,2*mx);
-
-	bfs(q[0][V-1],q[1],dist[1],from[1]);
-	int mx1=dist[1][q[1][V-1]];
+	U=min(U,treeDiam(q[0],from[0],tail));
+	
+	bfs(q[0][tail-1],q[1],dist[1],from[1]);
+	int mx1=dist[1][q[1][tail-1]];
 	L=max(L,mx1);U=min(U,2*mx1);
+	U=min(U,treeDiam(q[1],from[1],tail));
 
+	
 	if(mx1>mx){
 		mx=mx1;win=1;
 	}
 	
 	
-	int step=mx/2;a=q[win][V-1];
+	int step=mx/2;a=q[win][tail-1];
 	const tVI& f(from[win]);
 	while(step>0){a=f[a];--step;}
 
@@ -119,7 +125,7 @@ int tDiamAio::ifub(int s){
 
 
 //helper for ifubv2
-int tDiamAio::v2Helper(tVI& tq, tVI& tf,int tail){
+int tDiamAio::treeDiam(tVI& tq, tVI& tf,int tail){
 	tVI& d(v2);
 	fill(d.begin(),d.end(),0);
 	
@@ -137,14 +143,14 @@ int tDiamAio::v2Helper(tVI& tq, tVI& tf,int tail){
 
 
 // ifubv2, does not matter (slower)
-int tDiamAio::ifubv2(int s){
+int tDiamAio::ifubV2(int s){
 	tVI& q0(q[0]);tVI& d0(dist[0]);tVI& f0(from[0]);
 	tVI& q1(q[1]);tVI& d1(dist[1]);tVI& f1(from[0]);
 
 	int tail=bfs(s,q0,d0,f0);
 	s=d0[q0[tail-1]];
 	U=min(U,2*s);
-	U=min(U,v2Helper(q0,f0,tail));//new
+	U=min(U,treeDiam(q0,f0,tail));//new
 	L=max(L,s);
 
 	int i=tail-1;
@@ -160,7 +166,7 @@ int tDiamAio::ifubv2(int s){
 		int th=d1[q1[bfs(q0[i],q1,d1,f1)-1]];
 		//		if(2*th<U){printf("*\n");} 
 		U=min(U,2*th);
-		U=min(U,v2Helper(q1,f1,tail));//new
+		U=min(U,treeDiam(q1,f1,tail));//new
 		L=max(L,th);
 
 		i--;
@@ -191,7 +197,7 @@ int tDiamAio::bfs(int a,tVI& tq,tVI& td,tVI& tfr){
 				tq[tail++]=b;
 				tfr[b]=a;
 			}
-			it=(it->nxt);
+			it=(it->next);
 		}
 	}//queue
 	//	printf("tail: %d\n",tail);
@@ -218,7 +224,7 @@ int tDiamAio::bfs(int a, tVI& tq, tVI& td){
 				td[b]=da;
 				tq[tail++]=b;
 			}
-			it=(it->nxt);
+			it=(it->next);
 		}
 	}//queue
 	//	printf("tail: %d\n",tail);
@@ -248,10 +254,10 @@ int tDiamAio::bfs(tVI& tmp,tVI& tq,tVI& td,tVI& tfr){
 				tq[tail++]=b;
 				tfr[b]=a;
 			}
-			it=it->nxt;
+			it=it->next;
 		}
 	}//queue
-	return tq[tail-1];
+	return tail;
 }
 
 
@@ -274,15 +280,15 @@ int tDiamAio::bfs(tVI& tmp,tVI& tq,tVI& td){
 				td[b]=da;
 				tq[tail++]=b;
 			}
-			it=it->nxt;
+			it=it->next;
 		}
 	}//queue
-	return tq[tail-1];
+	return tail;
 }
 
 
 // brute-force tDiamAio
-int tDiamAio::bruteforce(){//brute force,for connected graphs
+int tDiamAio::bruteForce(){//brute force,for connected graphs
 	int mx=0;
 	tVI& q0(q[0]);tVI& d0(dist[0]);tVI& f0(from[0]);
 	for(int a=1;a<=V;a++){
@@ -295,19 +301,20 @@ int tDiamAio::bruteforce(){//brute force,for connected graphs
 
 // brute-force tDiamAio, variant that uses and updates L,U
 // no gain
-int tDiamAio::bruteforce2(){//brute force,for connected graphs
+int tDiamAio::bruteForce2(){//brute force,for connected graphs
 	tVI& q0(q[0]);tVI& d0(dist[0]);tVI& f0(from[0]);
 	for(int a=1;a<=V&&U>L;a++){
 		bfs(a,q0,d0,f0);
 		L=max(L,d0[q0[V-1]]);
 		U=min(U,2*d0[q0[V-1]]);
+		U=min(U,treeDiam(q0,f0,V));
 	}
 	return L;
 }//bftDiamAio
 
 
 // mindeg
-int tDiamAio::minselect(){
+int tDiamAio::minSelect(){
 	auto deg(G->deg);
 	int val=deg[1],loc=1;
 	for(int i=2;i<=V;i++){
@@ -320,7 +327,7 @@ int tDiamAio::minselect(){
 
 
 // maxdeg
-int tDiamAio::maxselect(){
+int tDiamAio::maxSelect(){
 	auto deg(G->deg);
 	int val=deg[1],loc=1;
 	for(int i=2;i<=V;i++){
@@ -333,7 +340,7 @@ int tDiamAio::maxselect(){
 
    
 // select a random number in 1..V   
-int tDiamAio::rndselect(){
+int tDiamAio::rndSelect(){
 //_LOG(_ERR("( unif.random node selection ) "));
    return mrand::IRND(1,V);
 }

@@ -7,14 +7,14 @@
 
 
 int main(){
-   mrand::init(-1);//fix sorozat
+   mrand::init(-1);//fix sorozat>0, random -1, 0->time(0)
 tik();
    csillagosInfo csi;
    aTartaly T(int(csi.LEPES*csi.P*csi.NCSM));
    {
       csillagos CS(csi,T);
       CS.clear();
-      CS.step1();
+      CS.step1st();
       CS.gen();
 _LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
       CS.write();      

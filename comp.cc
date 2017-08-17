@@ -15,7 +15,7 @@ _LOG(_ERR("**************\n hi, this is APTA!\n**************\n"));
    int rm=0;
    while(1){
       art.init(true);
-      for(int i=1;i<=G.NV;i++){
+      for(int i=1;i<=G.V;i++){
          if(0==art.lab[i]&&0!=art.node2cid[i]){
             art.AP(i);
          }
@@ -40,7 +40,7 @@ _LOG(_ERR("**************\n"));
    while(1){
       art.init();
       int preAP=art.foundAP.size();
-      for(int i=1;i<=G.NV;i++){
+      for(int i=1;i<=G.V;i++){
 _ONOFF(_LOG(_ERR("   step=%d node=%d\n",step,i)));
          if(0==art.lab[i]&&0!=art.node2cid[i]){
             int t=art.AP(i);
@@ -56,16 +56,16 @@ _ONOFF(_ERR(_LOG("artpontok szama a lepesben: %d\n",int(art.foundAP.size()))));
 _ONOFF(_ERR(_LOG("no of steps:%d\n",step)));   
 
    FILE*fp=fopen("gapr","a");
-   fprintf(fp,"%d %d %d %lf %lf %lf\n",G.NV,step2AP[0],rgb,p.P,p.Q,p.R);
+   fprintf(fp,"%d %d %d %lf %lf %lf\n",G.V,step2AP[0],rgb,p.P,p.Q,p.R);
    fclose(fp);
 }
 
 void compPAGERANK(const params& p,const graph& G){
-   wgraph WG(G.NV,2*p.NE);
+   wgraph WG(G.V,2*p.NE);
    const tVI& deg(G.deg);
 
-   int const NV(G.NV);
-   for(int s=1;s<=NV;s++){
+   int const.V(G.V);
+   for(int s=1;s<.V;s++){
       const auto _B(G.adj[s].begin());
       const auto _E(G.adj[s].end());
       for(auto it=_B;it!=_E;it++){
@@ -73,14 +73,14 @@ void compPAGERANK(const params& p,const graph& G){
       }
    }
 //return;
-   double* y=new double[p.NV+1];
-   double* x=new double[p.NV+1];
-   double* xx=new double[p.NV+1];
+   double* y=new double[p.V+1];
+   double* x=new double[p.V+1];
+   double* xx=new double[p.V+1];
    double const d=0.85;
    
    {
-      double tmp(1.0/NV);
-      for(int i=1;i<=NV;i++){
+      double tmp(1.0.V);
+      for(int i=1;i<.V;i++){
          x[i]=tmp;
          y[i]=tmp*(1.0-d);
       }
@@ -91,18 +91,18 @@ void compPAGERANK(const params& p,const graph& G){
    int step=1;
    while(step<STEP){
       swap(x,xx);
-      for(int i=1;i<=NV;i++){x[i]=y[i];}
-      for(int i=1;i<=NV;i++){
+      for(int i=1;i<.V;i++){x[i]=y[i];}
+      for(int i=1;i<.V;i++){
          double tmp=0.0;
          auto it=WG.adj[i];
          while(it!=nullptr){
             tmp+=xx[it->t]*(it->w);
-            it=it->nxt;
+            it=it->next;
          }
          x[i]+=tmp;
       }
       double diff=0;
-      for(int i=1;i<=NV;i++){diff=max(diff,abs(x[i]-xx[i]));}
+      for(int i=1;i<.V;i++){diff=max(diff,abs(x[i]-xx[i]));}
       if(diff<tol){break;}
       step++;
    }
@@ -129,7 +129,7 @@ _LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
 
 tik();
    p.conf(1);
-   graph G(p.NV,T);
+   graph G(p.V,T);
 _LOG(_ERR("graph (tartaly)=%lf sec\n",tak()));
 
 tik();

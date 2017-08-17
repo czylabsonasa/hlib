@@ -23,13 +23,15 @@
 
 using namespace std;
 typedef vector<forward_list<int>> tVFLI;
-typedef vector<int> tVI;
-typedef vector<double> tVD;
-typedef function<int()> tFUNIV;
 struct tII{int x;int y;};
 struct tIID{int x;int y;double w;};
+struct tLL{int val;tLL*next;};
+typedef vector<int> tVI;
+typedef vector<tII> tVII;
+typedef vector<double> tVD;
+typedef function<int()> tFUNIV;
 typedef long long int LLI;
 typedef int* pI;
-typedef enum{NONE,PARTIAL,FULL,INIT,CUSTOM,MEAN,MEDIAN,SPARSE,DENSE,iRDC,dRDC,d2RDC,SIMPLE,PATH} tModes;
+enum tModes{NONE,PARTIAL,FULL,INIT,CUSTOM,MEAN,MEDIAN,SPARSE,DENSE,iRDC,dRDC,d2RDC,SIMPLE,PATH,INQUEUE,VISITED,ACTIVE};
 
 #endif

@@ -1,0 +1,8 @@
+* appCsillagos
+  testing the descriptive statistics header against octave generated and computed data
+** [[./app.cc][source]]
+* Headers
+** [[../csillagos.hpp][csillagos]]
+** [[../inc.hpp][inc]]
+** [[../utils.hpp][utils]]
+** [[../destat.hpp][destat]]

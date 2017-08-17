@@ -10,7 +10,7 @@ int main(int np,char**p){
 	tik();
    vector<tII> elist;
 	//read the edgelist from command line given file
-   readelist(p[1], elist); 
+   readElist(p[1], elist); 
    graph G; G.init(elist);
    destat ds;
    ds.comp(G.deg);
@@ -23,8 +23,8 @@ int main(int np,char**p){
 	{
 		tDiamAio dm; dm.init(&G);
 		tik();
-		printf("diam=%d\n",dm.bruteforce());
-		_LOG(_ERR("********* diam, bruteforce: %lf sec\n",tak()));
+		printf("diam=%d\n",dm.bruteForce());
+		_LOG(_ERR("********* diam, bruteForce: %lf sec\n",tak()));
 	}
 
 

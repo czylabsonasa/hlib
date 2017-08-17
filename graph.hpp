@@ -7,7 +7,7 @@
 
 //RDC: from adj[s] only some of the neighbours are taken iRDC:only smaller idx, dRDC only neighbours with a specific deg
 struct graph{
-   struct tINFO{int t; tINFO* nxt;};
+   struct tINFO{int t; tINFO* next;};
    int V,E,iE;
    vector<tINFO*> adj;
    vector<tINFO> lista;
@@ -62,7 +62,7 @@ void graph::init(const graph& G, tModes mode){
             if(s>it->t){
                insertD(s,it->t);
             }
-            it=(it->nxt);
+            it=(it->next);
          }
       }
 		return;
@@ -77,7 +77,7 @@ void graph::init(const graph& G, tModes mode){
             if(ds>G.deg[it->t]||((ds==G.deg[it->t])&&(s>it->t))){
                insertD(s,it->t);
             }
-            it=(it->nxt);
+            it=(it->next);
          }
       }
 		return;
@@ -92,7 +92,7 @@ void graph::init(const graph& G, tModes mode){
 			auto it=G.adj[s];
          while(it!=nullptr){
 				d2s+=deg[it->t];
-            it=(it->nxt);
+            it=(it->next);
          }
 		}
 
@@ -106,7 +106,7 @@ void graph::init(const graph& G, tModes mode){
             if(d2s>deg2[it->t]||((d2s==deg2[it->t])&&(s>it->t))){
                insertD(s,it->t);
             }
-            it=(it->nxt);
+            it=(it->next);
          }
       }
 		return;
@@ -119,7 +119,7 @@ void graph::init(const graph& G, tModes mode){
          auto it=G.adj[s];
          while(it!=nullptr){
             insertD(s,it->t);
-            it=(it->nxt);
+            it=(it->next);
          }
       }
 		return;
@@ -174,7 +174,7 @@ void write(const graph& G,const char* const fname){
          if((it->t)>s){
             fprintf(fp,"%d %d\n",s,it->t);
          }
-         it=(it->nxt);
+         it=(it->next);
       }
    }
    fclose(fp);

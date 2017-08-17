@@ -65,7 +65,7 @@ _ONOFF(_LOG(_ERR("---------------in dfs: s=%d\n",s)));
 				}
 			}
 		}
-		it=(it->nxt);
+		it=(it->next);
 	}
 	if(0==prnt){//root node  
 		deg[s]=dg-1;//starting from 1

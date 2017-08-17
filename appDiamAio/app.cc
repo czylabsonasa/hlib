@@ -1,4 +1,5 @@
-//diam app
+//diam all in one test
+//TODO make faster
 #include "inc.hpp"
 #include "utils.hpp"
 #include "graph.hpp"
@@ -9,7 +10,7 @@ int main(int np,char**p){
 	tik();
    vector<tII> elist;
 	//read the edgelist from command line given file
-   readelist(p[1], elist); 
+   readElist(p[1], elist); 
    graph G; G.init(elist);
    destat ds;
    ds.comp(G.deg);
@@ -19,15 +20,17 @@ int main(int np,char**p){
 
 	tDiamAio dm; dm.init(&G);
 
-	// tik();
-	// printf("diam=%d\n",dm.bruteforce());
-   // _LOG(_ERR("********* diam, bruteforce: %lf sec\n",tak()));
+	tik();
+	printf("diam=%d\n",dm.bruteForce());
+   _LOG(_ERR("********* diam, bruteForce: %lf sec\n",tak()));
 
-	// tik();
-	// dm.initLU();
-	// printf("diam=%d\n",dm.bruteforce2());
-   // _LOG(_ERR("********* diam, bruteforce2: %lf sec\n",tak()));
+	tik();
+	dm.initLU();
+	printf("diam=%d\n",dm.bruteForce2());
+   _LOG(_ERR("********* diam, bruteForce2: %lf sec\n",tak()));
 
+	return 0;
+	
 
 	// tik();
 	// dm.initLU();
@@ -37,32 +40,53 @@ int main(int np,char**p){
 	
 	// tik();
 	// dm.initLU();
-	// printf("diam=%d\n",dm.ifub(dm.maxselect()));
+	// printf("diam=%d\n",dm.ifub(dm.maxSelect()));
 	// //printf("diam=%d\n",dm.ifub(dm.sweep2(1)));
 
 	{
 		tik();
 		dm.initLU();
-		int a=dm.maxselect();
-		int da=G.deg[a];
-		printf("start point:  node,deg=%d,%d\n",a,da);
-	
+		int a=dm.maxSelect();
+		int s;
+
+		s=dm.sweep2(dm.minSelect());
+		printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
+		printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
+		s=dm.sweep2(s);
+		printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
+		printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
+		// s=dm.sweep2(s);
+		// printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
+		// printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
+		// s=dm.sweep2(s);
+		// printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
+		// printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
+		// s=dm.sweep2(s);
+		// printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
+		// printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
+
+		
+		
+		
+		
 		//	dm.sweep2(dm.sweep2(dm.sweep2(1)));
-		printf("diam=%d\n",dm.ifub(dm.maxselect()));
+		printf("diam=%d\n",dm.ifub(a));
 		_LOG(_ERR("********* diam, ifub+sweep2: %lf sec\n",tak()));
 		//	printf("%d %d\n",dm.L,dm.U);
 	}
-	{
-		tik();
-		dm.initLU();
-		int a=dm.maxselect();
-		int da=G.deg[a];
-		printf("start point:  node,deg=%d,%d\n",a,da);
+
+
+	// {
+	// 	tik();
+	// 	dm.initLU();
+	// 	int a=dm.minSelect();
+	// 	int da=G.deg[a];
+	// 	printf("start point:  node,deg=%d,%d\n",a,da);
 	
-		//	dm.sweep2(dm.sweep2(dm.sweep2(1)));
-		printf("diam=%d\n",dm.ifubv2(dm.maxselect()));
-		_LOG(_ERR("********* diam, ifub+sweep2+new: %lf sec\n",tak()));
-	}
+	// 	//	dm.sweep2(dm.sweep2(dm.sweep2(1)));
+	// 	printf("diam=%d\n",dm.ifubv2(a));
+	// 	_LOG(_ERR("********* diam, ifub+sweep2+new: %lf sec\n",tak()));
+	// }
 
 	
 

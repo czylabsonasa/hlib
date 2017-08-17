@@ -6,25 +6,25 @@
 struct artipt{
    const tVFLI& adj;//shall we modify it?
    tVI deg;
-   int const NV;
+   int const.V;
    tVI node2cid; //component id of a node: 0 if removed
    int cid; //"global" for set the component label
    tVI cdb;//component mérete,darabszam
    tVI lab,low;//low: 
    tVI foundAP;//az AP-k vektora
    int tlab;//counter for prenum
-   artipt(graph& _G):adj(_G.adj),deg(_G.deg),NV(_G.NV),
-      node2cid(NV+1),cdb(NV+1),lab(NV+1),low(NV+1){}
+   artipt(graph& _G):adj(_G.adj),deg(_G.deg).V(_G.V),
+      node2cid.V+1),cdb.V+1),lab.V+1),low.V+1){}
 
    void init(bool partial=true){
       if(partial){
-         for(int i=0;i<=NV;i++){
+         for(int i=0;i<.V;i++){
             lab[i]=low[i]=0;
          }
          cid=0;//!
          foundAP.clear();
       }else{
-         for(int i=0;i<=NV;i++){
+         for(int i=0;i<.V;i++){
             node2cid[i]=-1;//nonzero
          }
       }
@@ -84,7 +84,7 @@ _ONOFF(if(cdb[cid]>1){_LOG(_ERR("%d gyokeru dfs-fa nagysaga,benne az AP-k szama:
    
 
    void dfs(int s,int prnt){
-assert(s<=NV);
+assert(s<.V);
       
 _ONOFF(_LOG(_ERR("---------------hibaker: s=%d\n",s)));
       low[s]=lab[s]=++tlab;
