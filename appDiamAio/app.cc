@@ -20,16 +20,16 @@ int main(int np,char**p){
 
 	tDiamAio dm; dm.init(&G);
 
-	tik();
-	printf("diam=%d\n",dm.bruteForce());
-   _LOG(_ERR("********* diam, bruteForce: %lf sec\n",tak()));
+	// tik();
+	// printf("diam=%d\n",dm.bruteForce());
+   // _LOG(_ERR("********* diam, bruteForce: %lf sec\n",tak()));
 
-	tik();
-	dm.initLU();
-	printf("diam=%d\n",dm.bruteForce2());
-   _LOG(_ERR("********* diam, bruteForce2: %lf sec\n",tak()));
+	// tik();
+	// dm.initLU();
+	// printf("diam=%d\n",dm.bruteForce2());
+   // _LOG(_ERR("********* diam, bruteForce2: %lf sec\n",tak()));
 
-	return 0;
+	// return 0;
 	
 
 	// tik();
@@ -45,7 +45,7 @@ int main(int np,char**p){
 
 	{
 		tik();
-		dm.initLU();
+		dm.initLU(1);
 		int a=dm.maxSelect();
 		int s;
 
@@ -70,7 +70,7 @@ int main(int np,char**p){
 		
 		
 		//	dm.sweep2(dm.sweep2(dm.sweep2(1)));
-		printf("diam=%d\n",dm.ifub(a));
+		printf("diam=%d\n",dm.ifubV2(a));
 		_LOG(_ERR("********* diam, ifub+sweep2: %lf sec\n",tak()));
 		//	printf("%d %d\n",dm.L,dm.U);
 	}

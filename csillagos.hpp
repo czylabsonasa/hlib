@@ -14,14 +14,14 @@ struct csillagosInfo{
    double P,Q,R;
    int LEPES;
    int NCSM;
-   int WCSLIST,WELIST;
+   int WCSLIST,WELIST,WVTXWGT;
 	int V, E;//a vegen 
    int ISM;//szimulaciohoz
    void defaults(){
       P=Q=R=0.5;
       LEPES=100;
       NCSM=4;
-      WCSLIST=WELIST=0;
+      WCSLIST=WELIST=WVTXWGT=0;
       ISM=0;
    }
 //
@@ -40,6 +40,7 @@ struct csillagosInfo{
             _CHECK(NCSM,=%d);
             _CHECK(WCSLIST,=%d);
             _CHECK(WELIST,=%d);
+            _CHECK(WVTXWGT,=%d);
             _CHECK(ISM,=%d);
             break;
          }
@@ -246,6 +247,7 @@ void csillagos::insert(){
 //write the elist and cslist accordind to the config
 
 void csillagos::write(){
+	//function
 	csp.V=aCsucs;
 	if(1==csp.WCSLIST){
 		FILE* fp=fopen("_cslist","w");

@@ -15,7 +15,7 @@ tik();
    {
       csillagos CS(csi,T);
       CS.clear();
-      CS.step1();
+      CS.step1st();
       CS.gen();
       CS.write();      
    }

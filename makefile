@@ -1,17 +1,23 @@
 SUBDIRS = $(shell find . -type d -name "app*" -printf "%f " )
 
-.PHONY: $(SUBDIRS) build clean
+.PHONY: build depend clean
 
-$(SUBDIRS):
-	$(MAKE) -C $@
 
-build: $(SUBDIRS)
-	
-	
+build:
+	for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir app; \
+		echo "";\
+   done
+
+depend:
+	for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir depend; \
+		echo "";\
+   done
+
+
 clean:
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir clean; \
 		echo "";\
    done
-
-

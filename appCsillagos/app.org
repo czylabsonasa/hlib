@@ -1,5 +1,5 @@
 * appCsillagos
-  testing the descriptive statistics header against octave generated and computed data
+  testing the csillagos header
 ** [[./app.cc][source]]
 * Headers
 ** [[../csillagos.hpp][csillagos]]

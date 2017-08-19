@@ -1,6 +1,11 @@
-_*
-*~
-*#*
-.*
-*.pdf
-*.ps
+*
+!*.hpp
+!*.cc
+!*.org
+!makefile
+!*.conf
+!*.sh
+!*.awk
+!*.R
+!*.m
+!*.mk

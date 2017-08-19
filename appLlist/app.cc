@@ -57,6 +57,8 @@ int main(int np,char**p){
 		}
 	}
 
+	writeVector(vector<tVI*>{&loc,&G.deg},"_out");
+	
 	int h=dmax;
 	while(llst.heads[h]->val==0){h--;}
 	loc.resize(h+1);
@@ -68,7 +70,7 @@ int main(int np,char**p){
 	
 	
 	tik();
-	writeVector(loc,"kcore");
+	writeVector(loc,"_kcoredist");
    _LOG(_ERR("llist write to file %lf sec\n",tak()));
 	
 	

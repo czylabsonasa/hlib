@@ -82,7 +82,7 @@ struct erdosrenyi{
    
    void write(vector<tII>& elek){
       if(eri.WELIST!=0){
-         ::write(elek,"_elist");
+         writeElist(elek,"_elist");
       }
    }
 

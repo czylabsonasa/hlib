@@ -25,7 +25,7 @@ printf("ISM=%d\n",csi.ISM);
 
    for(int ism=0;ism<csi.ISM;ism++){
       CS.clear();
-      CS.step1();
+      CS.step1st();
       CS.gen();
       CS.write();      
       G.init(csi.V,T);

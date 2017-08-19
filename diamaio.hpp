@@ -16,11 +16,12 @@ struct tDiamAio{
 	int L,U;
    int INF;//beware of overflow :-)
    int numofbfs;
+	int tol;
 	graph* G;
    tVI dist[2],q[2],from[2]; //dist,queue,from
 	tVI v2; //helper vector for ifubv2
 	void init(graph*);//resizing vectors
-	void initLU();//set init values 
+	void initLU(int=0);//set init values, and tolarance for U-L
 	//all bfs version returns the farthest node 
 	int bfs(int, tVI&, tVI&, tVI&);//one source
 	int bfs(int, tVI&, tVI&);//from mentes
@@ -60,8 +61,9 @@ void tDiamAio::init(graph* _G){
 
 
 //init L and U
-void tDiamAio::initLU(){
+void tDiamAio::initLU(int _tol){
 	L=1;U=V-1; //assuming connected non-degenerate graph
+	tol=_tol;
 }
 
 
@@ -104,7 +106,7 @@ int tDiamAio::ifub(int s){
 
 	int ph=INF;
 	i=i-1;
-	while(i>0 && U>L){
+	while(i>0 && U>L+tol){
 		int h=d0[q0[i]];
 		if(h<ph){//level change
 			if(L>=2*h){break;}
@@ -155,7 +157,7 @@ int tDiamAio::ifubV2(int s){
 
 	int i=tail-1;
 	int ph=INF;
-	while(i>0 && U>L){
+	while(i>0 && U>L+tol){
 		int h=d0[q0[i]];
 		if(h<ph){//level change
 			if(L>=2*h){break;}
@@ -303,7 +305,7 @@ int tDiamAio::bruteForce(){//brute force,for connected graphs
 // no gain
 int tDiamAio::bruteForce2(){//brute force,for connected graphs
 	tVI& q0(q[0]);tVI& d0(dist[0]);tVI& f0(from[0]);
-	for(int a=1;a<=V&&U>L;a++){
+	for(int a=1;a<=V&&U>L+tol;a++){
 		bfs(a,q0,d0,f0);
 		L=max(L,d0[q0[V-1]]);
 		U=min(U,2*d0[q0[V-1]]);

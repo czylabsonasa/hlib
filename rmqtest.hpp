@@ -33,7 +33,7 @@ namespace RMQ{
 
    struct BF:base{
       int operator()(int q0, int q1){//q0<=q1
-         return rangeMin(a+q0,a+q1+1);
+         return Min(a+q0,a+q1+1);
       }
       
       string name() {
@@ -229,7 +229,7 @@ namespace RMQ{
       
       int operator() (int lo, int up) {
          --lo;--up;
-         if(up-lo<2){return rangeMin(a+lo,a+up+1);}
+         if(up-lo<2){return Min(a+lo,a+up+1);}
          int ans=a[up];//pont jo, mert jobbrol nyitott a dp
 //         int t=int(log2(up-lo));
          int t=31-__builtin_clz(up-lo);
@@ -382,10 +382,10 @@ namespace RMQ{
          pc=mynew.getmem<int>(h+1);//precomputed
          ++a;//0 base is clearer
          for(int i=0;i<h;i++){
-            pc[i]=rangeMin(a+i*sqaN,a+(i+1)*sqaN);
+            pc[i]=Min(a+i*sqaN,a+(i+1)*sqaN);
          }
          if(m>0){
-            pc[h]=rangeMin(a+h*sqaN,a+aN);
+            pc[h]=Min(a+h*sqaN,a+aN);
          }
       }
 
@@ -394,12 +394,12 @@ namespace RMQ{
          int lo=q0/sqaN;
          int up=q1/sqaN;
          if(up-lo<2){//brute
-            return rangeMin(a+q0,a+q1+1);
+            return Min(a+q0,a+q1+1);
          }
 
-         int ans=rangeMin(a+q0,a+(lo+1)*sqaN);//beg
-         ans=min(ans,rangeMin(pc+lo+1,pc+up));//mid
-         ans=min(ans,rangeMin(a+up*sqaN,a+q1+1));//end
+         int ans=Min(a+q0,a+(lo+1)*sqaN);//beg
+         ans=min(ans,Min(pc+lo+1,pc+up));//mid
+         ans=min(ans,Min(a+up*sqaN,a+q1+1));//end
          return ans;
       }
       
