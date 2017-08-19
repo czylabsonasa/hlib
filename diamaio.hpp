@@ -5,8 +5,7 @@
 
 #ifndef __DIAMAIO_H__
 #define __DIAMAIO_H__
-#include "inc.hpp"
-#include "mrand.hpp"
+#include "common.hpp"
 
 //declare
 

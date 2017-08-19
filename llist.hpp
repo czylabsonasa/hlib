@@ -1,8 +1,7 @@
 // a (very special) collection of linked lists
 #ifndef __LLIST_H__
 #define __LLIST_H__
-#include "inc.hpp"
-#include "mrand.hpp"
+#include "common.hpp"
 
 //declare
 

@@ -6,18 +6,21 @@ SUBDIRS = $(shell find . -type d -name "app*" -printf "%f " )
 build:
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir app; \
-		echo "";\
+		echo ""; \
    done
 
+
+# nothing to be done, akkor is ha megcsinalja
 depend:
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir depend; \
-		echo "";\
+		echo ""; \
    done
 
 
 clean:
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir clean; \
-		echo "";\
+		echo ""; \
    done
+

@@ -1,7 +1,6 @@
 #ifndef __BFS_H__
 #define __BFS_H__
-#include "inc.hpp"
-#include "mrand.hpp"
+#include "common.hpp"
 
 //declare
 

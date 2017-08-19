@@ -1,8 +1,7 @@
 // a fixed size (V+1+2*(dmax+1)) collection of doubly linked lists
 #ifndef __KCORE_H__
 #define __KCORE_H__
-#include "inc.hpp"
-#include "mrand.hpp"
+#include "common.hpp"
 
 //declare
 

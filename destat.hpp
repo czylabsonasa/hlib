@@ -1,6 +1,6 @@
 #ifndef __DESTAT_H__
 #define __DESTAT_H__
-#include "inc.hpp"
+#include "utils.hpp"
 
 // --- declarations --
 struct destat{

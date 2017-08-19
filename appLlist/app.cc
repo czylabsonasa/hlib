@@ -57,7 +57,7 @@ int main(int np,char**p){
 		}
 	}
 
-	writeVector(vector<tVI*>{&loc,&G.deg},"_out");
+	writeColVector(vector<tVI*>{&loc,&G.deg},"_out");
 	
 	int h=dmax;
 	while(llst.heads[h]->val==0){h--;}

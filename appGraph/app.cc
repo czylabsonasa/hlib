@@ -16,11 +16,9 @@ int main(){
 		G.init(elist); //setting up the graph from the edge-list
 		
 		ds.comp(G.deg);
-		printf("raw deg: ");
-		write(G.deg);
 		
-		write(ds,"G.deg");
-		write(ds.freq(G.deg),0);
+		write(ds,"_deg");
+		writeVector(ds.freq(G.deg),"_degfrek",0);
 		
 	}
 		

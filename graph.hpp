@@ -1,7 +1,7 @@
 #ifndef __GRAPH_H__
 #define __GRAPH_H__
+#include "common.hpp"
 #include "tartaly.hpp"
-#include "inc.hpp"
 
 // -- declarations ---
 

@@ -1,8 +1,7 @@
 #ifndef __PAGERANK_H__
 #define __PAGERANK_H__
 
-#include "inc.hpp"
-#include "utils.hpp"
+#include "common.hpp"
 #include "graph.hpp"
 #include "wgraph.hpp"
 

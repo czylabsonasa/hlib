@@ -1,7 +1,7 @@
 #ifndef __WGRAPH_H__
 #define __WGRAPH_H__
+#include "common.hpp"
 #include "tartaly.hpp"
-#include "inc.hpp"
 
 struct wgraph{
    struct tINFO{int t;double w;tINFO* next;};

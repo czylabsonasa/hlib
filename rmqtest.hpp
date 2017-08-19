@@ -1,5 +1,6 @@
 #ifndef __RMQTEST_H__
 #define __RMQTEST_H__
+#include "common.hpp"
 
 namespace RMQ{
 

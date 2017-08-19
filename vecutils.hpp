@@ -11,20 +11,28 @@ namespace vecutils{
 	int flprec=12;
 	template<typename T> double mean(const vector<T>&, int const=1);//shift by s the start idx
 	template<typename T> double sum(const vector<T>&, int const=1);
-	void write(const tVI&, const int=1);//int
-	void write(const tVD&, const int=1);//double
-	void writeVector(const tVI&, const char*, int const s=0);
-	void writeVector(vector<tVI*> v, const char*, int const s=0);
+	void writeVector(const tVI&, const char* const, int const=1);
+	void writeVector(const tVI&, FILE* =stderr, int const=1);
+
+	void writeVector(const tVD&, const char* const, int const=1);
+	void writeVector(const tVD&, FILE* =stderr, int const=1);
+
+	void writeColVector(const tVI&, const char*, int const s=0);
+	void writeColVector(vector<tVI*> v, const char*, int const s=0);
 	void writeElist(vector<tII>&, const char* const);
+
 	void readElist(const char* const, vector<tII>&);
 	void readElist(FILE*, vector<tII>&);
+
 	void readVector(FILE*, vector<double>&,int const=1);
 	//
 	void write(double*, double* const);
-	int Min(int*, int* const);
-}
-using vecutils::flprec;
+	template<typename T> T Min(T*, T* const);
+	template<typename T> T Max(T*, T* const);
 
+}
+
+using vecutils::flprec;
 
 
 template<typename T> double vecutils::mean(const vector<T>& v,int const s){
@@ -48,27 +56,43 @@ template<typename T> double vecutils::sum(const vector<T>& v,int const s){
    return ret;
 }
 
-void vecutils::write(const tVI& v, const int _s){
-	auto _b=v.begin()+_s;
-	const auto _e=v.end();
-   while(_b<_e){
-      printf("%d ",*(_b++));
-   }
-   printf("\n");
-}
 
- 
-void vecutils::write(const tVD& v,int const _s){
-	auto _b=v.begin()+_s;
-	const auto _e=v.end();
-   while(_b<_e){
-      printf("%.*lf ",flprec,(*(_b++)));
-   }
-   printf("\n");
+void vecutils::writeVector(const tVI& v, const char* const fname , int const s){
+	FILE* fp=fopen(fname,"w");
+	vecutils::writeVector(v,fp,s);
+	fclose(fp);
 }
 
 
-void vecutils::writeVector(const tVI& v, const char*fn, const int s){
+void vecutils::writeVector(const tVI& v, FILE* fp, int const s){
+	auto _b=v.begin()+s;
+	const auto _e=v.end();
+   while(_b<_e){
+      fprintf(fp, "%d ", (*(_b++)));
+   }
+   fprintf(fp,"\n");
+}
+
+
+void vecutils::writeVector(const tVD& v, const char* const fname , int const s){
+	FILE* fp=fopen(fname,"w");
+	vecutils::writeVector(v,fp,s);
+	fclose(fp);
+}
+
+
+void vecutils::writeVector(const tVD& v, FILE* fp, int const s){
+	auto _b=v.begin()+s;
+	const auto _e=v.end();
+   while(_b<_e){
+      fprintf(fp, "%.*lf ",flprec,(*(_b++)));
+   }
+   fprintf(fp,"\n");
+}
+
+
+
+void vecutils::writeColVector(const tVI& v, const char*fn, const int s){
 	FILE*fp=fopen(fn,"w");
 	int const N=v.size();
    for(int i=s;i<N;i++){
@@ -78,7 +102,7 @@ void vecutils::writeVector(const tVI& v, const char*fn, const int s){
 }
 
 
-void vecutils::writeVector(vector<tVI*> v, const char*fn, int const s){
+void vecutils::writeColVector(vector<tVI*> v, const char*fn, int const s){
 	FILE*fp=fopen(fn,"w");
 	int const V=v.size();
 	int const N=(*v[0]).size();
@@ -132,7 +156,6 @@ void vecutils::readVector(FILE*fp, vector<double>& v,int const s){//for multiple
    }
 }
 
-
 //
 
 void vecutils::write(double* _b, double* const _e){
@@ -143,10 +166,19 @@ void vecutils::write(double* _b, double* const _e){
 }
 
 
-int vecutils::Min(int* beg, int* const end){
-   int ans=*beg;
+template<typename T> T vecutils::Min(T* beg, T* const end){
+   T ans=*beg;
    while(++beg<end){
       ans=min(ans,*beg);
+   }
+   return ans;
+}
+
+
+template<typename T> T vecutils::Max(T* beg, T* const end){
+   T ans=*beg;
+   while(++beg<end){
+      ans=max(ans,*beg);
    }
    return ans;
 }

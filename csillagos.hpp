@@ -2,10 +2,8 @@
 #define __CSILLAGOS_H__
 
 //legeneral egy peldanyt a csillagos modellbol
-#include "inc.hpp"
-#include "mrand.hpp"
+#include "common.hpp"
 #include "tartaly.hpp"
-#include "utils.hpp"
 
 
 // handling (reading) parameters)
