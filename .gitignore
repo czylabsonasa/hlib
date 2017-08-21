@@ -1,6 +1,7 @@
 *
 !sim/
 !*app*/
+!*include
 !*.hpp
 !*.cc
 !*.org
