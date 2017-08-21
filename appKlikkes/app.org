@@ -1,0 +1,9 @@
+* appKllikkes
+  testing the klikkes header
+
+* [[./app.cc][app]]
+
+* [[../klikkes.hpp][klikkes]]
+* [[../inc.hpp][inc]]
+* [[../utils.hpp][utils]]
+* [[./klikkes.conf][klikkes konfig]]

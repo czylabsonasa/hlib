@@ -56,8 +56,8 @@ struct klikkes{
    double const P;
    double const Q;
    double const R;
-   int const LEPES;
-   int const NKM;
+   int LEPES;
+   int NKM;
 //
    int* const buff;
    int** const kLista;
@@ -77,7 +77,8 @@ struct klikkes{
       delete[] buff;
    }
 //
-   void clear(){
+   void clear(int _LEPES){
+		LEPES=_LEPES;
       aLEPES=0;
       aCsucs=0;
       tar.clear();

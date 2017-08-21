@@ -1,4 +1,4 @@
-SUBDIRS = $(shell find . -type d -name "app*" -printf "%f " )
+SUBDIRS = $(shell find . -maxdepth 1 -type d -name "app*" -printf "%f " )
 
 .PHONY: build depend clean
 

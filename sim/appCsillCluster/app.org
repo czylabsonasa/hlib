@@ -1,0 +1,8 @@
+* appCsillCluster
+  testing the csillagos header, simulation
+* [[./app.cc][app]]
+
+* [[../csillagos.hpp][csillagos]]
+* [[../inc.hpp][inc]]
+* [[../utils.hpp][utils]]
+* [[./csillagos.conf][csillagos konfig]]

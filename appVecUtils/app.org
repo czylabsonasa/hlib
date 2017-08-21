@@ -1,0 +1,7 @@
+* appVecUtils
+  testing the vecutils header
+** [[./app.cc][source]]
+* Headers
+** [[../vecutils.hpp][vecutils]]
+** [[../inc.hpp][inc]]
+** [[../utils.hpp][utils]]

@@ -14,7 +14,7 @@ tik();
    aTartaly T(int(csi.LEPES*csi.P*csi.NCSM));
    {
       csillagos CS(csi,T);
-      CS.clear();
+      CS.clear(csi.LEPES);
       CS.step1st();
       CS.gen();
       CS.write();      

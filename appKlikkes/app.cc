@@ -15,7 +15,7 @@ tik();
    aTartaly T(int(ki.LEPES*ki.P*ki.NKM));
    {
       klikkes KL(ki, T);
-      KL.clear();
+      KL.clear(ki.LEPES);
       KL.step1st();
       KL.gen();
 _LOG(_ERR("model (tartaly)=%lf sec\n",tak()));

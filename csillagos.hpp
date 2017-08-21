@@ -58,15 +58,15 @@ struct csillagos{
    double const P;
    double const Q;
    double const R;
-   int const LEPES;
-   int const NCSM;
+   int LEPES;
+   int NCSM;
 //
    int* const buff;
    int** const csLista;
    int aLEPES,aCsucs;
 	csillagos(csillagosInfo&, aTartaly& );
    ~csillagos();
-   void clear();
+   void clear(int);
    void PASampleKicsi();
    void PASampleNagy();
 	void USampleNagy();
@@ -95,7 +95,8 @@ csillagos::~csillagos(){
 }
 
 
-void csillagos::clear(){
+void csillagos::clear(int _LEPES){
+	LEPES=_LEPES;
 	aLEPES=0;
 	aCsucs=0;
 	tar.clear();
