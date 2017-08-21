@@ -1,8 +1,8 @@
 * appCsillagos
   testing the csillagos header
-** [[./app.cc][source]]
-* Headers
-** [[../csillagos.hpp][csillagos]]
-** [[../inc.hpp][inc]]
-** [[../utils.hpp][utils]]
-** [[../destat.hpp][destat]]
+* [[./app.cc][app]]
+
+* [[../csillagos.hpp][csillagos]]
+* [[../inc.hpp][inc]]
+* [[../utils.hpp][utils]]
+* [[./csillagos.conf][csillagos konfig]]

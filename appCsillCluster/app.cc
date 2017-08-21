@@ -36,6 +36,7 @@ printf("ISM=%d\n",csi.ISM);
       cla.init(G.V);
       cla.coeffR(rG, G.deg);
       ds.comp(cla.lcc);
+		fprintf(fclus,"%d %.2lf %.2lf %.2lf ",csi.LEPES, csi.P, csi.Q, csi.R );
       write(ds, fclus);
       write(ds, "cluster:");
 

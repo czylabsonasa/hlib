@@ -1,6 +1,7 @@
 #ifndef __CSILLAGOS_H__
 #define __CSILLAGOS_H__
 
+// todo implement progress
 //legeneral egy peldanyt a csillagos modellbol
 #include "common.hpp"
 #include "tartaly.hpp"
@@ -12,14 +13,14 @@ struct csillagosInfo{
    double P,Q,R;
    int LEPES;
    int NCSM;
-   int WCSLIST,WELIST,WVTXWGT;
+   int WCSLIST,WELIST,WVTXWGT,WDEGLIST,PROGRESS;
 	int V, E;//a vegen 
    int ISM;//szimulaciohoz
    void defaults(){
       P=Q=R=0.5;
       LEPES=100;
       NCSM=4;
-      WCSLIST=WELIST=WVTXWGT=0;
+      WCSLIST=WELIST=WVTXWGT=WDEGLIST=PROGRESS=0;
       ISM=0;
    }
 //
@@ -39,6 +40,7 @@ struct csillagosInfo{
             _CHECK(WCSLIST,=%d);
             _CHECK(WELIST,=%d);
             _CHECK(WVTXWGT,=%d);
+            _CHECK(WDEGLIST,=%d);
             _CHECK(ISM,=%d);
             break;
          }
@@ -268,6 +270,25 @@ void csillagos::write(){
 		}
 		fclose(fp);
 	}
+	if(1==csp.WVTXWGT){
+		tVI res(1+aCsucs,0);
+		for(int i=1;i<=LEPES;i++){
+			int* const akt=csLista[i];
+			for(int j=0;j<NCSM;j++){
+				++res[akt[j]];
+			}
+		}
+		writeVector(res,"_vtxwgtlist",1,"\n");
+	}
+	if(1==csp.WDEGLIST){
+		tVI res(1+aCsucs,0);
+		for(auto it=tar.tar.begin();it!=tar.tar.end();it++){
+			++res[it->x];
+			++res[it->y];
+		}
+		writeVector(res,"_deglist",1,"\n");
+	}
+
 }
    
 

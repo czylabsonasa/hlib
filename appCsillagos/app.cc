@@ -8,7 +8,8 @@
 
 int main(){
    mrand::init(-1);//fix sorozat>0, random -1, 0->time(0)
-tik();
+
+	tik();
    csillagosInfo csi;
    aTartaly T(int(csi.LEPES*csi.P*csi.NCSM));
    {
@@ -16,19 +17,20 @@ tik();
       CS.clear();
       CS.step1st();
       CS.gen();
-_LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
       CS.write();      
    }
 
-tik();
-   
-   graph G;
-   G.init(csi.V,T);
-_LOG(_ERR("graph (tartaly)=%lf sec\n",tak()));
+	_LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
 
-   destat dst;
-   dst.comp(G.deg);
-   write(dst, "deg:");
+	
+	// tik();
+   // graph G;
+   // G.init(csi.V,T);
+	// _LOG(_ERR("graph (tartaly)=%lf sec\n",tak()));
+
+   // destat dst;
+   // dst.comp(G.deg);
+   // write(dst, "deg:");
 
    return 0;
 }

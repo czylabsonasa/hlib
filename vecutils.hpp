@@ -11,14 +11,15 @@ namespace vecutils{
 	int flprec=12;
 	template<typename T> double mean(const vector<T>&, int const=1);//shift by s the start idx
 	template<typename T> double sum(const vector<T>&, int const=1);
-	void writeVector(const tVI&, const char* const, int const=1);
-	void writeVector(const tVI&, FILE* =stderr, int const=1);
+	void writeVector(const tVI&, const char* const, int const=1,const char* const=" ");
+	void writeVector(const tVI&, FILE* =stderr, int const=1,const char* const=" ");
 
-	void writeVector(const tVD&, const char* const, int const=1);
-	void writeVector(const tVD&, FILE* =stderr, int const=1);
+	void writeVector(const tVD&, const char* const, int const=1,const char* const=" ");
+	void writeVector(const tVD&, FILE* =stderr, int const=1,const char* const=" ");
 
 	void writeColVector(const tVI&, const char*, int const s=0);
 	void writeColVector(vector<tVI*> v, const char*, int const s=0);
+
 	void writeElist(vector<tII>&, const char* const);
 
 	void readElist(const char* const, vector<tII>&);
@@ -56,36 +57,37 @@ template<typename T> double vecutils::sum(const vector<T>& v,int const s){
    return ret;
 }
 
+/////////////// ------------------ //////////////
 
-void vecutils::writeVector(const tVI& v, const char* const fname , int const s){
+void vecutils::writeVector(const tVI& v, const char* const fname , int const s, const char* const sep){
 	FILE* fp=fopen(fname,"w");
-	vecutils::writeVector(v,fp,s);
+	vecutils::writeVector(v,fp,s,sep);
 	fclose(fp);
 }
 
 
-void vecutils::writeVector(const tVI& v, FILE* fp, int const s){
+void vecutils::writeVector(const tVI& v, FILE* fp, int const s,const char* const sep){
 	auto _b=v.begin()+s;
 	const auto _e=v.end();
    while(_b<_e){
-      fprintf(fp, "%d ", (*(_b++)));
+      fprintf(fp, "%d%s", (*(_b++)), sep);
    }
    fprintf(fp,"\n");
 }
 
 
-void vecutils::writeVector(const tVD& v, const char* const fname , int const s){
+void vecutils::writeVector(const tVD& v, const char* const fname , int const s, const char* const sep){
 	FILE* fp=fopen(fname,"w");
-	vecutils::writeVector(v,fp,s);
+	vecutils::writeVector(v,fp,s,sep);
 	fclose(fp);
 }
 
 
-void vecutils::writeVector(const tVD& v, FILE* fp, int const s){
+void vecutils::writeVector(const tVD& v, FILE* fp, int const s, const char* const sep){
 	auto _b=v.begin()+s;
 	const auto _e=v.end();
    while(_b<_e){
-      fprintf(fp, "%.*lf ",flprec,(*(_b++)));
+      fprintf(fp, "%.*lf%s",flprec,(*(_b++)),sep);
    }
    fprintf(fp,"\n");
 }

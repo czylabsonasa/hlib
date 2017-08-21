@@ -1,4 +1,4 @@
-// csillagos modell generalas es a graph letrehozasa (a tartalyon keresztul)
+// klikkes modell generalas es a graph letrehozasa (a tartalyon keresztul)
 #include "common.hpp"
 #include "klikkes.hpp"
 #include "tartaly.hpp"
@@ -16,7 +16,7 @@ tik();
    {
       klikkes KL(ki, T);
       KL.clear();
-      KL.step1();
+      KL.step1st();
       KL.gen();
 _LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
       KL.write();      

@@ -12,14 +12,14 @@ struct klikkesInfo{
    double P,Q,R;
    int LEPES;
    int NKM;//nagy klikk merete
-   int WKLIST,WELIST;
+   int WKLIST,WELIST,WVTXWGT,WDEGLIST,PROGRESS;;
    int V, E;//a vegen 
    int ISM;//szimulaciohoz
    void defaults(){
       P=Q=R=0.5;
       LEPES=100;
       NKM=4;
-      WKLIST=WELIST=0;
+      WKLIST=WELIST=WVTXWGT=WDEGLIST=0;
       ISM=0;
    }
 //
@@ -38,6 +38,8 @@ struct klikkesInfo{
             _CHECK(NKM,=%d);
             _CHECK(WKLIST,=%d);
             _CHECK(WELIST,=%d);
+            _CHECK(WVTXWGT,=%d);
+            _CHECK(WDEGLIST,=%d);
             _CHECK(ISM,=%d);
             break;
          }
@@ -45,7 +47,6 @@ struct klikkesInfo{
       fclose(fp);
    }
 };
-
 
 
 struct klikkes{
@@ -140,11 +141,10 @@ struct klikkes{
       }
       ++aCsucs ;
    }
-   //
    // 
    // kezdő alakzat beállítása
-   //
-   void step1(){
+	//
+   void step1st(){
       // a kezdő klikk beállítása (1-2,1-3,1-4,...,(NKM-1)-NKM)
       int* const uj=kLista[1] ; 
       for(int i=0;i<NKM;i++){uj[i]=i+1;}
@@ -152,9 +152,11 @@ struct klikkes{
       insert();
       aCsucs=NKM ;
    }
-   //
+	//
+   // a graf generalasa
+	//
    void gen(){
-      step1() ;
+      step1st() ;
       
       while(aLEPES<LEPES){
          if(mrand::DRND()<P){ // új csúcs születik
@@ -180,6 +182,20 @@ struct klikkes{
       }
       // gráfgenerálás vége
    }
+	//
+	// elek a hash-ba
+	//
+   void insert(){
+      int* const akt=kLista[aLEPES];
+      for(int j=0;j<NKM-1;j++){
+         const int a=akt[j];
+         for(int k=j+1;k<NKM;k++){
+            tar.insert(a,akt[k]);
+         }
+      }
+   }
+	//
+	// a W* parameterknek megfelelo dolgok kiirasa
    //
    void write(){
       //NV+NE mindenkeppen beallitva
@@ -205,18 +221,31 @@ struct klikkes{
          }
          fclose(fp);
       }
-   }
-   
-   void insert(){
-      int* const akt=kLista[aLEPES];
-      for(int j=0;j<NKM-1;j++){
-         const int a=akt[j];
-         for(int k=j+1;k<NKM;k++){
-            tar.insert(a,akt[k]);
-         }
-      }
-   }
-   
+
+		if(1==kp.WVTXWGT){
+			tVI res(1+aCsucs,0);
+			for(int i=1;i<=LEPES;i++){
+				int* const akt=kLista[i];
+				for(int j=0;j<NKM;j++){
+					++res[akt[j]];
+				}
+			}
+			writeVector(res,"_vtxwgtlist",1,"\n");
+		}
+
+		if(1==kp.WDEGLIST){
+			tVI res(1+aCsucs,0);
+			for(auto it=tar.tar.begin();it!=tar.tar.end();it++){
+				++res[it->x];
+				++res[it->y];
+			}
+			writeVector(res,"_deglist",1,"\n");
+		}
+
+		
+   }//write
+
+	
 }; // klikk
 
 #endif
