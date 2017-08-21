@@ -5,6 +5,7 @@
 
 typedef vector<int> tVI;
 typedef vector<tII> tVII;
+typedef vector<tIII> tVIII;
 typedef vector<double> tVD;
 
 namespace vecutils{

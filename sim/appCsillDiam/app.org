@@ -1,0 +1,13 @@
+* CsillDiam simulating 
+
+*  [[./app.cc][app source]] 
+
+
+*  [[./include/diamaio.hpp][diamaio]]
+*  [[./include/csillagos.hpp][csillagos]]
+*  [[./include/graph.hpp][graph]]
+*  [[./include/inc.hpp][inc]]
+*  [[./include/utils.hpp][utils]]
+*  [[./include/destat.hpp][destat]]
+*  [[./makefile][makefile]]
+*  [[./include/Rlang/graphstuff.R][graphstuff in R]]

@@ -24,6 +24,7 @@
 using namespace std;
 typedef vector<forward_list<int>> tVFLI;
 struct tII{int x;int y;};
+struct tIII{int x;int y;int z;};
 struct tIID{int x;int y;double w;};
 struct tLL{int val;tLL*next;};
 typedef function<int()> tFUNIV;

@@ -1,4 +1,6 @@
 *
+!sim/
+!*app*/
 !*.hpp
 !*.cc
 !*.org
@@ -10,5 +12,3 @@
 !*.m
 !*.mk
 !_make
-!*app*/
-!sim/

@@ -108,7 +108,7 @@ int tDiamAio::ifub(int s){
 	while(i>0 && U>L+tol){
 		int h=d0[q0[i]];
 		if(h<ph){//level change
-			if(L>=2*h){break;}
+			if(L>=2*h){U=L;break;}
 			ph=h;
 			U=2*h;//indirekt
 		}
