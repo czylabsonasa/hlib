@@ -26,7 +26,7 @@ struct klikkesInfo{
    klikkesInfo(){
       defaults();
       FILE*fp=fopen("klikkes.conf","r");
-      if(nullptr==fp){_ERR("config error,using defaults...");return;}
+      if(nullptr==fp){_ERR("config error...exit\n");exit(1);}
       char ass[128];//assignment
       while(1==fscanf(fp,"%s",ass)){
          char* t=paramshelper(ass);

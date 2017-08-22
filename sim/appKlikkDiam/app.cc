@@ -1,12 +1,9 @@
-//diam csill simulatpion
+//diam klikkes simulation
 #include "common.hpp"
 #include "graph.hpp"
 #include "diamaio.hpp"
-#include "csillagos.hpp"
+#include "klikkes.hpp"
 #include "tartaly.hpp"
-
-// tVI simLEP{10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,200000,500000,1000000};
-// tVI simISM{   20,   20,   100,      100,    100,    50,    50,    50,    50,    30,     20,     10,     10};	
 
 tVIII sim{
 	tIII{10000,50,0},
@@ -40,51 +37,53 @@ tVIII sim{
 
 
 int main(int np,char**p){
-	int multi=1;
+	int multi=1;//multiplier for the sim (number of graph instances generated)
 	if(np>1){
-		if(1!=sscanf(p[1],"%d",&multi)){printf("wrong multi...exit\n");exit(1);}
+		if(1!=sscanf(p[1],"%d",&multi)){_ERR("wrong multi...exit\n");exit(1);}
 	}
+
 	mrand::init(-1);
 
-   csillagosInfo csi;
-   aTartaly T(int(csi.LEPES*csi.P*csi.NCSM));
-   csillagos CS(csi,T);
-   graph G; G.init(csi.LEPES+1,csi.LEPES*csi.P*csi.NCSM);
+   klikkesInfo ki;
+   aTartaly T(int(ki.LEPES*ki.P*ki.NKM));
+   klikkes KL(ki,T);
+   graph G; G.init(ki.LEPES+1,ki.LEPES*ki.P*ki.NKM);
    destat ds;
 	tDiamAio diam;
 
    FILE*fdiam=fopen("_diamres","a");
 	for(int m=0;m<multi;m++){
-		for(int i=0;i<sim.size()&&sim[i].x<=csi.LEPES;i++){
+		for(int i=0;i<sim.size()&&sim[i].x<=ki.LEPES;i++){
 			int LEP=sim[i].x;
-			int ISM=multi*sim[i].y;
+			int ISM=sim[i].y;
+			int TOL=sim[i].z;
 			for(int ism=0;ism<ISM;ism++){
 				//8,7,6 - make it more diverse
 				double tmp=0.7+mrand::DRND()*0.3;
 				int aLEP=int(tmp*LEP);
-				CS.clear(aLEP);
-				CS.step1st();
-				CS.gen();
-				CS.write();      
-				G.init(csi.V,T);
+				KL.clear(aLEP);
+				KL.step1st();
+				KL.gen();
+				KL.write();      
+				G.init(ki.V,T);
 				diam.init(&G);
-				diam.initLU(sim[i].z);//tolerance=1
+				diam.initLU(TOL);//tolerance for ifub
 
 				int a=diam.maxSelect();
 				// int s;
 				// s=dm.sweep2(a);
 				diam.ifub(a);
-				fprintf(fdiam,"%d %d %d %d\n",aLEP, csi.V, diam.L, diam.U);
+				fprintf(fdiam,"%d %d %d %d\n",aLEP, ki.V, diam.L, diam.U);
 				fflush(fdiam);
-				_LOG(_ERR("********* diam, ifub: %d,%d,%d\n",m,i+1,ism+1));
+				_LOG(_ERR("**** diam, ifub: %d,%d,%d\n",m,i+1,ism+1));
 			}
 
 		}
-	}//multi
+	}
 	fclose(fdiam);
 	//create the config for R
 	fdiam=fopen("_diamres.conf","w");
-	fprintf(fdiam,"%d-star | p=%.1lf q=%.1lf r=%.1lf | ? instances\n",csi.NCSM, csi.P,csi.Q,csi.R);
+	fprintf(fdiam,"%d-clique | p=%.1lf q=%.1lf r=%.1lf | ? instances\n",ki.NKM, ki.P,ki.Q,ki.R);
 	fclose(fdiam);
    return 0;
 }

@@ -98,13 +98,13 @@ int tDiamAio::ifub(int s){
 	tVI& q0(q[0]);tVI& d0(dist[0]);
 	tVI& q1(q[1]);tVI& d1(dist[1]);
 
-	int i=bfs(s,q0,d0);
-	s=d0[q0[i-1]];
+	int tail=bfs(s,q0,d0);
+	s=d0[q0[tail-1]];
 	U=min(U,2*s);
 	L=max(L,s);
 
 	int ph=INF;
-	i=i-1;
+	int i=tail-1;
 	while(i>0 && U>L+tol){
 		int h=d0[q0[i]];
 		if(h<ph){//level change
@@ -120,7 +120,7 @@ int tDiamAio::ifub(int s){
 
 		i--;
 	}
-	printf("end: %d\n",i);
+	_ERR("tail,end: %d,%d\n",tail,i);
 	return L;
 }//ifub
 
@@ -172,7 +172,7 @@ int tDiamAio::ifubV2(int s){
 
 		i--;
 	}
-	printf("end: %d\n",i);
+	_ERR("tail,end: %d,%d\n",tail,i);
 	
 	return L;
 }//ifubv2

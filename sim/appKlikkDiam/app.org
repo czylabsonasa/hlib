@@ -1,0 +1,13 @@
+* KlikkDiam simulating 
+
+*  [[./app.cc][app source]] 
+
+
+*  [[./include/diamaio.hpp][diamaio]]
+*  [[./include/klikkes.hpp][klikkes]]
+*  [[./include/graph.hpp][graph]]
+*  [[./include/inc.hpp][inc]]
+*  [[./include/utils.hpp][utils]]
+*  [[./include/diamaio.hpp][diam]]
+*  [[./makefile][makefile]]
+*  [[./include/Rlang/graphstuff.R][graphstuff in R]]
