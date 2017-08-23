@@ -1,9 +1,8 @@
-//cluster app
-// iRDC a nyero
+// dlist  app
 #include "inc.hpp"
 #include "utils.hpp"
 #include "graph.hpp"
-#include "cluster.hpp"
+#include "kcore.hpp"
 
 int main(int np,char**p){
 
@@ -14,52 +13,24 @@ int main(int np,char**p){
    graph G; G.init(elist);
    _LOG(_ERR("graph: %lf sec\n",tak()));
 
-   destat ds;
 
-   tik();
-   ds.comp(G.deg);
-   write(ds,"G.deg");
+	kCore kcr; kcr(&G);
 
-   cluster cla;
-
-	{
-		tik();
-		cla.coeff(G, G.deg);
-		_LOG(_ERR("vanilla coeff+mean: %lf sec\n",tak()));
-	}
-
-	{
-		tik();
-		cla.coeffR2(G, G.deg);
-		_LOG(_ERR("R2 coeff+mean: %lf sec\n",tak()));
-	}
-
-	
-	{
-		tik();
-		graph rG; rG.init(G, dRDC);
-		cla.coeffR(rG, G.deg);
-		_LOG(_ERR("dRDC coeff+mean: %lf sec\n",tak()));
-	}
-
-	{
-		tik();
-		graph rG; rG.init(G, d2RDC);
-		cla.coeffR(rG, G.deg);
-		_LOG(_ERR("d2RDC coeff+mean: %lf sec\n",tak()));
+	tVI deg2(G.V+1,0);
+	for(int s=1;s<=G.V;s++){
+		int cs=kcr.loc[s];
+		auto git=G.adj[s];
+		while(git!=nullptr){
+			int v=git->t;
+			if(v>s&&kcr.loc[v]!=cs){
+				++deg2[v];
+				++deg2[s];
+			}
+			git=git->next;
+		}
 	}
 	
-	{
-		tik();
-		graph rG; rG.init(G, iRDC);
-		cla.coeffR(rG, G.deg);
-		_LOG(_ERR("iRDC coeff+mean: %lf sec\n",tak()));
-	}
-
+	writeColVector(vector<tVI*>{&kcr.loc,&G.deg,&deg2},"_out");
 	
-   ds.comp(cla.lcc);
-   write(ds, "coeffR vector");
-
-
    return 0;
 }

@@ -2,47 +2,40 @@
 #ifndef __KCORE_H__
 #define __KCORE_H__
 #include "common.hpp"
+#include "llist.hpp"
 
 //declare
 
-//the KCore struct
-struct KCore{
-	int V;
-   int INF;//beware of overflow :-)
-   int head, tail;
-	graph* G;
-   tVI que; //queue
-	void init(graph*);//resizing vectors
-	int operator()();
+struct kCore{
+	tVI loc; 
+   tLlist llst; 
+	void operator()(graph* _G){
+		graph& G(*_G);
+		int dmax=*max_element(G.deg.begin()+1,G.deg.end());
+		llst.init(dmax,G.V);
+		loc.resize(1+G.V);
+		for(int i=1;i<=G.V;i++){
+			loc[i]=G.deg[i];
+			llst.push_back(i,loc[i]);//v,h
+		}
+		for(int d=1;d<dmax;d++){//d<dmax
+			//		fprintf(fp,"%d(%d):",d,llst.heads[d]->val);
+			auto lit=llst.heads[d]->next;
+			while((lit->next)!=nullptr){
+				auto git=G.adj[lit->val];
+				while(git!=nullptr){
+					int v=git->t;
+					if(loc[v]>d){
+						llst.remove(v,loc[v]);
+						llst.push_back(v,--loc[v]);
+					}
+					git=git->next;
+				}
+				lit=lit->next;
+			}
+		}
+	}
 };
 
-// define
-
-// general init, graph, V, resize containers, init mode with default
-void KCore::init(graph* _G){
-	G=_G;
-	V=G->V;
-	INF=V+11;
-	que.resize(V+1);
-}
-
-
-
-// 
-int KCore::operator()(){
-	while(head!=tail){
-		int a=que[head++];
-		auto it=(G->adj[a]);
-		while(it!=nullptr){
-			int b=it->t;
-			if(da<dist[b]){
-				que[tail++]=b;
-			}
-			it=(it->next);
-		}
-	}//queue
-
-	return que[tail-1];
-}
 
 #endif

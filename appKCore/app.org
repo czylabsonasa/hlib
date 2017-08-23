@@ -2,9 +2,9 @@
   testing the kcore header against given networks.
 *  [[./app.cc][app source]]
 *  [[../kcore.hpp][kcore]]
-*  [[../dlist.hpp][dlist]]
+*  [[../llist.hpp][llist]]
 *  [[../inc.hpp][inc]]
-*  [[../utils.hpp][utils]]
+*  [[../vecutils.hpp][vecutils]]
 *  [[../graph.hpp][graph]]
 *  [[../destat.hpp][destat]]
 *  [[./makefile][makefile]]

@@ -6,7 +6,8 @@
 #include "diamaio.hpp"
 
 int main(int np,char**p){
-
+	//	int sp=1;sscanf(p[2],"%d",&sp);
+	
 	tik();
    vector<tII> elist;
 	//read the edgelist from command line given file
@@ -43,36 +44,42 @@ int main(int np,char**p){
 	// printf("diam=%d\n",dm.ifub(dm.maxSelect()));
 	// //printf("diam=%d\n",dm.ifub(dm.sweep2(1)));
 
-	{
+	dm.initLU(0);
+	for(int sp=1;sp<=30;sp++){
 		tik();
-		dm.initLU(1);
-		int a=dm.maxSelect();
-		int s;
+		// int a=dm.maxSelect();
+		// int s;
 
-		s=dm.sweep2(dm.minSelect());
-		printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
-		printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
-		s=dm.sweep2(s);
-		printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
-		printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
-		// s=dm.sweep2(s);
+		// s=dm.sweep2(dm.minSelect());
 		// printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
 		// printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
 		// s=dm.sweep2(s);
 		// printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
 		// printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
-		// s=dm.sweep2(s);
-		// printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
-		// printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
+		// // s=dm.sweep2(s);
+		// // printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
+		// // printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
+		// // s=dm.sweep2(s);
+		// // printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
+		// // printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
+		// // s=dm.sweep2(s);
+		// // printf("sweep2\n --- L:%d U:%d ",dm.L,dm.U);
+		// // printf("\n --- node,deg=%d,%d\n\n",s,G.deg[s]);
 
 		
 		
 		
 		
 		//	dm.sweep2(dm.sweep2(dm.sweep2(1)));
-		printf("diam=%d\n",dm.ifubV2(a));
+		printf("diam=%d\n",dm.ifub(sp));
 		_LOG(_ERR("********* diam, ifub+sweep2: %lf sec\n",tak()));
-		//	printf("%d %d\n",dm.L,dm.U);
+			printf("%d %d\n",dm.L,dm.U);
+
+		printf("diam=%d\n",dm.ifub(G.V+1-sp));
+		_LOG(_ERR("********* diam, ifub+sweep2: %lf sec\n",tak()));
+			printf("%d %d\n",dm.L,dm.U);
+
+
 	}
 
 
