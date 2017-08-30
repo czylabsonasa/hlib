@@ -66,6 +66,7 @@ int main(int np,char**p){
 				CS.step1st();
 				CS.gen();
 				CS.write();      
+
 				G.init(csi.V,T);
 				diam.init(&G);
 				diam.initLU(sim[i].z);//tolerance=1

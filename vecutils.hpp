@@ -12,6 +12,8 @@ namespace vecutils{
 	int flprec=12;
 	template<typename T> double mean(const vector<T>&, int const=1);//shift by s the start idx
 	template<typename T> double sum(const vector<T>&, int const=1);
+	template<typename T> double corr(const vector<T>&, const vector<T>&, int const=1);
+
 	void writeVector(const tVI&, const char* const, int const=1,const char* const=" ");
 	void writeVector(const tVI&, FILE* =stderr, int const=1,const char* const=" ");
 
@@ -46,6 +48,26 @@ template<typename T> double vecutils::mean(const vector<T>& v,int const s){
    }
 	return ret/double(v.size()-s);
 }
+
+template<typename T> double vecutils::corr(const vector<T>& v, const vector<T>& w, int const s){
+	double mv=0, mw=0, mv2=0, mw2=0, mvw=0;
+	int sv=v.size();
+	for(int i=s;i<sv;i++){
+		mv+=v[i];
+		mv2+=v[i]*v[i];
+		mw+=w[i];
+		mw2+=w[i]*w[i];
+		mvw+=v[i]*w[i];
+	}
+	sv=sv-s;
+	mv/=sv;
+	mv2/=sv;
+	mw/=sv;
+	mw2/=sv;
+	mvw/=sv;
+	return (mvw-mv*mw)/(sqrt(mv2-mv*mv)*sqrt(mw2-mw*mw));
+}
+
 
 
 template<typename T> double vecutils::sum(const vector<T>& v,int const s){

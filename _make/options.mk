@@ -1,4 +1,4 @@
-CC=g++ -std=c++14
+CC=g++ -std=c++11
 
 WR=-Wall -Wno-sign-compare -Wno-unused-result -Wno-format
 

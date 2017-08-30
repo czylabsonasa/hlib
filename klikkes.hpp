@@ -24,7 +24,7 @@ struct klikkesInfo{
    }
 //
    klikkesInfo(){
-      defaults();
+//      defaults();
       FILE*fp=fopen("klikkes.conf","r");
       if(nullptr==fp){_ERR("config error...exit\n");exit(1);}
       char ass[128];//assignment
@@ -45,6 +45,7 @@ struct klikkesInfo{
          }
       }
       fclose(fp);
+//printf("%d %d %lf %lf %lf\n",LEPES,NKM,P,Q,R);
    }
 };
 
@@ -53,9 +54,9 @@ struct klikkes{
    klikkesInfo& kp;
    aTartaly& tar;
 //
-   double const P;
-   double const Q;
-   double const R;
+   double P;
+   double Q;
+   double R;
    int LEPES;
    int NKM;
 //
@@ -77,8 +78,8 @@ struct klikkes{
       delete[] buff;
    }
 //
-   void clear(int _LEPES){
-		LEPES=_LEPES;
+   void clear(int _LEPES=0){
+		if(_LEPES!=0){LEPES=_LEPES;}
       aLEPES=0;
       aCsucs=0;
       tar.clear();
@@ -91,13 +92,13 @@ struct klikkes{
       int* const uj=kLista[++aLEPES];
       // másolás
       for(int i=0;i<NKM;i++){uj[i]=regi[i];}
-      // az új csúcs periféria lesz
-      int kihagy=mrand::IRND(1,NKM-1);
-      for(int i=kihagy;i<NKM-1;i++){uj[i]=uj[i+1];}
-      uj[NKM-1]=++aCsucs;
+// fatal error
+//printf("%d\n",mrand::IRND(0,NKM-1));
+      int kihagy=mrand::IRND(0,NKM-1);
+      uj[kihagy]=(++aCsucs);
    }
    //
-   // PA-val választ a létező nagy csillagokból
+   // PA-val választ a létező nagy klikkekbol
    // az egyöntetűség miatt függvény készült belőle
    //
    void PASampleNagy(){
@@ -157,30 +158,36 @@ struct klikkes{
    // a graf generalasa
 	//
    void gen(){
-      step1st() ;
-      
+		step1st(); 
       while(aLEPES<LEPES){
-         if(mrand::DRND()<P){ // új csúcs születik
+			double flip1=mrand::DRND();
+			double flip2=mrand::DRND();
+			
+         if(flip1<P){ // új csúcs születik
             // boviti a listat...
-            if(mrand::DRND()<R){ // PR ág, az új szélső
+            if(flip2<R){ // PR ág
+//printf("PR\n");
                PASampleKicsi();
                insert();
-            }
-            else{ // P(1-R) ág
-               USampleKicsi() ; // uni NCSM-1 + az új lesz a központ
+            }else{ // P(1-R) ág
+               USampleKicsi() ; //
                insert();
+//printf("P-R\n");
             }
-         }
-         else{
-            if( mrand::DRND() < Q ){ // pa a nagyokból, (1-P)Q
+         }else{
+            if( flip2< Q ){ // pa a nagyokból, (1-P)Q
+//printf("-PQ\n");
                PASampleNagy() ;
+					//insert();
                //nem kell insert a tartalyba, mert minden csucs regi
             }else{ // egyenletesen a csúcsok közül, (1-P)(1-Q)
+//printf("-P-Q\n");
+
                USampleNagy() ;
                insert();
             }
          }
-      }
+      }//while
       // gráfgenerálás vége
    }
 	//
@@ -231,7 +238,7 @@ struct klikkes{
 					++res[akt[j]];
 				}
 			}
-			writeVector(res,"_vtxwgtlist",1,"\n");
+			writeVector(res,"_vtxwgtres",1,"\n");
 		}
 
 		if(1==kp.WDEGLIST){
@@ -240,7 +247,7 @@ struct klikkes{
 				++res[it->x];
 				++res[it->y];
 			}
-			writeVector(res,"_deglist",1,"\n");
+			writeVector(res,"_degres",1,"\n");
 		}
 
 		

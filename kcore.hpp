@@ -7,7 +7,8 @@
 //declare
 
 struct kCore{
-	tVI loc; 
+	tVI loc;
+	tVI dist;
    tLlist llst; 
 	void operator()(graph* _G){
 		graph& G(*_G);
@@ -33,6 +34,12 @@ struct kCore{
 				}
 				lit=lit->next;
 			}
+		}
+		int mx=*max_element(loc.begin(),loc.end());
+		dist.resize(mx+1);
+		fill(dist.begin(),dist.end(),0);
+		for(int i=1;i<=G.V;i++){
+			++dist[loc[i]];
 		}
 	}
 };

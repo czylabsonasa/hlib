@@ -64,7 +64,7 @@ struct tartalyUS{
    unordered_set<tII,IIhash> tar;
    int meret;
    tartalyUS(int Mx){
-      tar.reserve(Mx);
+      tar.reserve(4*Mx);
       tar.max_load_factor(0.25);
       meret=0;
    }

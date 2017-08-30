@@ -19,6 +19,7 @@ int main(){
       CS.gen();
       CS.write();      
    }
+	return 0;
 
 	_LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
 

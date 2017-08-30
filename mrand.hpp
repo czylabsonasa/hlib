@@ -4,7 +4,7 @@
 #include "inc.hpp"
 
 namespace mrand{
-   double const RMX=(1.0+double(RAND_MAX));
+   double const RMX=double(RAND_MAX);
    void init(int s){
       if(s<0){
          unsigned int t;
@@ -21,11 +21,11 @@ namespace mrand{
       srand(s);
    }
 //
-   inline int IRND( int const a , int const b ){//b IS included
+   int IRND( int const a , int const b ){//b IS included
       return a+(rand()%(b-a+1));
    }
 //
-   inline double DRND(){
+   double DRND(){
       return double(rand())/RMX;//uniform in [0,1)
    }
 };
