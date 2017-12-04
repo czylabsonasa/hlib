@@ -37,6 +37,7 @@ struct pagerankInfo{
 };
 
 
+
 struct pagerank{
    pagerankInfo& prp;
    int const MAXITER;
@@ -45,7 +46,7 @@ struct pagerank{
    pagerank(pagerankInfo& _prp):prp(_prp), 
       MAXITER(prp.MAXITER),TOL(prp.TOL),D(prp.D)
    {}
-   
+
    void comp(const graph& G,vector<double>& info){
       wgraph WG(G.V,G.E);
       const tVI& deg(G.deg);
@@ -66,7 +67,6 @@ struct pagerank{
       double* y=new double[V+1];
       double* x=new double[V+1];
       double* xx=new double[V+1];
-   
    {
       double tmp(1.0/V);
       for(int s=1;s<=V;s++){
@@ -74,7 +74,6 @@ struct pagerank{
          y[s]=tmp*(1.0-D);
       }
    }
-   
       double diff;
       int iter=1;
       while(iter<=MAXITER){
@@ -101,6 +100,7 @@ struct pagerank{
       for(int i=1;i<=V;i++){
          info[i]=x[i];
       }
+
 
       delete[]x;
       delete[]xx;

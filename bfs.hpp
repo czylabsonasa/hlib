@@ -61,7 +61,6 @@ void tBfs::insert(int s){
 	dist[s]=0;
 }
 
-
 // run bfs, from the inserted nodes, return the farthest node
 int tBfs::operator()(){
 	if(mode==PATH){//
@@ -97,5 +96,6 @@ int tBfs::operator()(){
 
 	return que[tail-1];
 }
+
 
 #endif

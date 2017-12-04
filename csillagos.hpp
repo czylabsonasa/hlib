@@ -78,6 +78,7 @@ struct csillagos{
 };
 
 
+
 csillagos::csillagos(csillagosInfo& _csp, aTartaly& _tar):
 	csp(_csp),tar(_tar),
 	P(_csp.P),Q(_csp.Q),R(_csp.R),LEPES(_csp.LEPES),NCSM(_csp.NCSM),
@@ -172,7 +173,7 @@ void csillagos::USampleNagy(){
 // Egyenletesen választ a létező csúcsok közül NCSM-1-et,
 // majd ezeket az uj csucs köré rakja perifériának
 // Nagyon hasonló az USampleNagy-hoz.
-//
+
 
 void csillagos::USampleKicsi(){
 	int* const uj=csLista[++aLEPES];

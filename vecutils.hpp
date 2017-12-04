@@ -69,7 +69,6 @@ template<typename T> double vecutils::corr(const vector<T>& v, const vector<T>& 
 }
 
 
-
 template<typename T> double vecutils::sum(const vector<T>& v,int const s){
    double ret=0.0;
 	auto _b=v.begin()+s;
@@ -87,6 +86,7 @@ void vecutils::writeVector(const tVI& v, const char* const fname , int const s, 
 	vecutils::writeVector(v,fp,s,sep);
 	fclose(fp);
 }
+
 
 
 void vecutils::writeVector(const tVI& v, FILE* fp, int const s,const char* const sep){
@@ -125,6 +125,7 @@ void vecutils::writeColVector(const tVI& v, const char*fn, const int s){
    }
 	fclose(fp);
 }
+
 
 
 void vecutils::writeColVector(vector<tVI*> v, const char*fn, int const s){
@@ -170,6 +171,7 @@ void vecutils::readElist(FILE*fp, vector<tII>& elek){
       elek[i].x=x;elek[i].y=y;
    }
 }
+
 
 
 void vecutils::readVector(FILE*fp, vector<double>& v,int const s){//for multiple reading

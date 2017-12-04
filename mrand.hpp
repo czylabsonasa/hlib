@@ -21,13 +21,16 @@ namespace mrand{
       srand(s);
    }
 //
+
    int IRND( int const a , int const b ){//b IS included
       return a+(rand()%(b-a+1));
    }
 //
+
    double DRND(){
       return double(rand())/RMX;//uniform in [0,1)
    }
 };
+
 
 #endif

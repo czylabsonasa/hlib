@@ -21,6 +21,7 @@ void write(const destat&, FILE*);//write to a file given by handler
 
 //////////////////////////////////////////////////////////
 
+
 // --- method defs ---
 template<typename T> void destat::comp(const vector<T>& v,const int s){//base,default 1
    _N=v.size()-1;//0 is unused

@@ -4,34 +4,32 @@ namespace Treap {
       pair<int,int> val;
       int pri;
       Treap *L, *R;
-      
       Treap(const pair<int,int>& v) {
          val=v;
          pri=rand();
          L=NULL;R=NULL;
       }
    };
-   
+
    void rotate_left(Treap*& root) {
       Treap* j=root->R;
       root->R=j->L;
       j->L=root;
       root=j;
    }
-   
+
    void rotate_right(Treap*& root) {
       Treap* b=root->L;
       root->L=b->R;
       b->R=root;
       root=b;
    }
-   
+
    bool insert(Treap*& root, const pair<int,int>& val) {
       if(root==NULL) {
          root=new Treap(val);
          return false;
       }
-      
       bool res=false;
       if(root->val < val) {
          res|=insert(root->R, val);
@@ -70,7 +68,6 @@ struct tartalyT {
          tar[key]=true;
          return true;
       }*/
-      
    }
    
 };

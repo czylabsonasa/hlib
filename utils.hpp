@@ -6,7 +6,6 @@
 #include "vecutils.hpp"
 using namespace vecutils;
 
-
 #define _ONOFF(x) 
 #define _LOG(...) __VA_ARGS__
 //#define _LOG(x) 
@@ -69,8 +68,6 @@ template<typename T,typename S> void mul(T* _b,S* _e,S alfa){
 template<typename T,typename S> void div(T* _b,S* _e,S alfa){
    while(_b<_e){(*_b)/=alfa;_b++;}
 }
-
-
 
 #endif
 

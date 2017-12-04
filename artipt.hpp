@@ -83,6 +83,7 @@ _ONOFF(_LOG(_ERR("---------------in dfs: s=%d\n",s)));
 }
 
 
+
 //~ void compAPTA(graph& G,tVI& out){
 //~ _LOG(_ERR("**************\n hi, this is APTA!\n**************\n"));
    //~ artp art(G);
@@ -102,7 +103,6 @@ _ONOFF(_LOG(_ERR("---------------in dfs: s=%d\n",s)));
    //~ }
 //~ _ERR(_LOG("no of rm-s:%d\n",rm));   
 //~ }
-
 
 // external def
 void compGAPR(graph& G,tVI& info){//info[]
@@ -144,5 +144,6 @@ _ONOFF(_LOG(_ERR("   run=%d node=%d\n",run,s)));
 _ONOFF(_ERR(_LOG("no of runs:%d\n",run)));   
 
 }
+
 
 #endif

@@ -154,7 +154,6 @@ namespace RMQ{
       pI t;
       int* dp;
       #define INDEXDP(x,y) dp[(x)+(y)*sz]
-      
       void init(pI _t) {
          base::init(_t);
          t=_t;
@@ -187,12 +186,10 @@ namespace RMQ{
                ans=min(ans, INDEXDP(a, 0));
                break ;
             }
-            
             int i=0;
             for(i=log-1;i>=0 && a+(1<<i)>b;--i){
               if(a+(1<<i)<=b) break; 
             }
-            
             ans=min(ans, INDEXDP(a, i));
             a+=(1<<i);
          }

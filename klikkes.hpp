@@ -124,11 +124,13 @@ struct klikkes{
          }
       }
    }
+
    //
    // Egyenletesen választ a létező csúcsok közül NKM-1-et,
    // ezek az uj csuccsal alkotnak klikket
    // Nagyon hasonló az USampleNagy-hoz.
    //
+
    void USampleKicsi(){
       int* const uj=kLista[++aLEPES];
       uj[0]=aCsucs+1;
@@ -162,7 +164,6 @@ struct klikkes{
       while(aLEPES<LEPES){
 			double flip1=mrand::DRND();
 			double flip2=mrand::DRND();
-			
          if(flip1<P){ // új csúcs születik
             // boviti a listat...
             if(flip2<R){ // PR ág

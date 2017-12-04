@@ -43,6 +43,7 @@ struct erdosrenyi{
       N=eri.N;
       P=eri.P;
    }
+
    void genNaive(vector<tII>& elek){//brute force
       elek.clear();
       elek.push_back(tII{N,-1});
@@ -70,7 +71,6 @@ struct erdosrenyi{
          if(floor(dlth)<dlth){
             ++lth;
          }
-         
 //printf("%d %d\n",kth-(lth*(lth-1))/2,lth+1);
          elek.push_back(tII{int(kth-(LLI(lth)*LLI(lth-1))/2),lth+1});
          kth++;

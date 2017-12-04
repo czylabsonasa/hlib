@@ -11,7 +11,7 @@ struct wgraph{
    vector<tINFO> tar;//idx=0 unused (sentinel)
    tVI deg;
    wgraph(int _NV,int _NE):NV(_NV),NE(_NE),adj(NV+1),tar(2*NE+9),
-									deg(NV+1){
+	deg(NV+1){
       aE=0;
    }
 
@@ -34,7 +34,7 @@ struct wgraph{
 //          ++deg[it->b];
 //       }
 //    }
-   
+
    void clear(){
       aE=0;
    }
@@ -56,6 +56,6 @@ struct wgraph{
       tar[aE]=tINFO{b,w,tmp};
       ++deg[a];
    }
-   
+
 };
 #endif

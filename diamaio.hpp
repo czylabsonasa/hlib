@@ -41,7 +41,6 @@ struct tDiamAio{
 
 };
 
-
 // define
 
 // general init
@@ -64,7 +63,6 @@ void tDiamAio::initLU(int _tol){
 	L=1;U=V-1; //assuming connected non-degenerate graph
 	tol=_tol;
 }
-
 
 // sweep2
 int tDiamAio::sweep2(int a){
@@ -173,9 +171,10 @@ int tDiamAio::ifubV2(int s){
 		i--;
 	}
 	_ERR("tail,end: %d,%d\n",tail,i);
-	
+
 	return L;
 }//ifubv2
+
 
 
 // single source bfs (from), returns the tail, ie. the size of the actual component

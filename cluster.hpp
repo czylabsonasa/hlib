@@ -24,7 +24,6 @@ struct cluster{
 };
 
 
-
 void cluster::init(int _V){
 	V=_V;
 	volt.resize(V+1);
@@ -66,7 +65,7 @@ void cluster::count(const graph& G){//numtri[idx]: num of triangles centered at 
 	}
 }
 
-	
+
 //same as before with the reduced graph   
 void cluster::countR(const graph& rG){//
 	init(rG.V);
@@ -103,6 +102,7 @@ void cluster::countR(const graph& rG){//
 		}
 	}
 }
+
 
 
 void cluster::countR2(const graph& G){//numtri[idx]: num of triangles centered at idx

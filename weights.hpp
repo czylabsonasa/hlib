@@ -2,6 +2,7 @@
 #define __WEIGHTS_H__
 #include "common.hpp"
 
+
 struct tMut{
    int* p;
    int np;
@@ -12,5 +13,6 @@ struct tMut{
       return false;
    }
 };
+
 
 #endif

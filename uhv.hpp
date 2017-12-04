@@ -44,6 +44,7 @@ void node2size(UHV& uhv,tVI& n2s){
    }
 }
 
+
 void simp(tVI& v){//there is a plenty zeroes
    int tar=1;int src=1;
    int const N=v.size()-1;

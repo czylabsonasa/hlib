@@ -30,6 +30,7 @@ struct tLL{int val;tLL*next;};
 typedef function<int()> tFUNIV;
 typedef long long int LLI;
 typedef int* pI;
+
 enum tModes{NONE,PARTIAL,FULL,INIT,CUSTOM,MEAN,MEDIAN,SPARSE,DENSE,iRDC,dRDC,d2RDC,SIMPLE,PATH,INQUEUE,VISITED,ACTIVE};
 
 #endif

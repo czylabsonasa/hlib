@@ -52,9 +52,6 @@ struct IIhash{
 //       return (h1^h2);
        return std::hash<int>()(53*(X.x+53)+X.y);
 //       return 53*(X.x+53)+X.y;
-
-       
-
        //       return (x.a>>1)^( x.b<<2 ) ;
    }
 };

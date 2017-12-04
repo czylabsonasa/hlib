@@ -5,7 +5,6 @@
 
 //declare
 
-
 struct tLlist{
 	int H,V;//heads+nodes(vertices)
 	vector<tLL> all;
@@ -54,6 +53,7 @@ void tLlist::push_back(int v, int h){
 	++(heads[h]->val);//size
 }
 
+
 void tLlist::push_front(int v,int h){
 	auto tmp=heads[h]->next;
 	heads[h]->next=vertices[v];
@@ -75,7 +75,6 @@ void tLlist::remove(int v,int h){
 	vv=v;
 	--(heads[h]->val);
 }
-
 
 
 void write(tLlist& llst, FILE*fp=stderr){

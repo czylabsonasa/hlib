@@ -30,9 +30,8 @@ graph genKlikk(int);
 graph genStar(int);
 
 
-
-
 ///////////////////////////////////////////////////////////////////
+
 
 
 // internal method defs
@@ -52,7 +51,7 @@ void graph::init(int _V, int _E,tModes mode){
    lista.resize(tE);
    iE=0;
 }
-   
+
 void graph::init(const graph& G, tModes mode){
    if(iRDC==mode){
       init(G.V,G.E,mode);
@@ -111,7 +110,6 @@ void graph::init(const graph& G, tModes mode){
       }
 		return;
 	}
-	
 	
    if(FULL==mode){
       init(G.V,G.E);
