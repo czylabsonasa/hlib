@@ -35,7 +35,6 @@ tVIII sim{
 };
 
 
-
 int main(int np,char**p){
 	int multi=1;//multiplier for the sim (number of graph instances generated)
 	if(np>1){
@@ -77,7 +76,6 @@ int main(int np,char**p){
 				fflush(fdiam);
 				_LOG(_ERR("**** diam, ifub: %d,%d,%d\n",m,i+1,ism+1));
 			}
-
 		}
 	}
 	fclose(fdiam);

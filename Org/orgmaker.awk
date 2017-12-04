@@ -1,6 +1,6 @@
 BEGIN{ 
-gdir=".."; 
-ldir="."; 
+gdir="..";
+ldir=".";
 }
    // {akt=$2}
    /^G/{ printf "***  [[%s/%s][%s]]\n",gdir,akt,akt; }

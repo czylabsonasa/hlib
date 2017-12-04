@@ -45,7 +45,6 @@ struct tartalyUM{
 bool operator==(const tII& lhs,const tII& rhs){
    return (lhs.x==rhs.x)&&(lhs.y==rhs.y);
 }
-//
 struct IIhash{
    int operator()( tII const& X ) const{
 //       int const h1( std::hash<int>()( X.x ) ) ;

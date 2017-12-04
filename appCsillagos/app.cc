@@ -17,7 +17,7 @@ int main(){
       CS.clear(csi.LEPES);
       CS.step1st();
       CS.gen();
-      CS.write();      
+      CS.write();
    }
 	return 0;
 

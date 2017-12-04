@@ -79,7 +79,6 @@ int main(int np,char**p){
 				fflush(fdiam);
 				_LOG(_ERR("********* diam, ifub: %d,%d,%d\n",m,i+1,ism+1));
 			}
-
 		}
 	}//multi
 	fclose(fdiam);

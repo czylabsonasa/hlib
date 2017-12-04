@@ -56,10 +56,8 @@ int main(int np,char**p){
 		_LOG(_ERR("iRDC coeff+mean: %lf sec\n",tak()));
 	}
 
-	
    ds.comp(cla.lcc);
    write(ds, "coeffR vector");
-
 
    return 0;
 }

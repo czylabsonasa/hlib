@@ -7,7 +7,7 @@
 
 int main(int np,char**p){
 
-	tik();
+    tik();
    vector<tII> elist;
 	//read the edgelist from command line given file
    readElist(p[1], elist); 

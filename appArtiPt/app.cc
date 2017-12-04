@@ -17,7 +17,7 @@ tik();
       CS.clear(csi.LEPES);
       CS.step1st();
       CS.gen();
-      CS.write();      
+      CS.write();
    }
 _LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
 

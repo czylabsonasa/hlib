@@ -1,6 +1,6 @@
 library(igraph)
 elist2graph<-function(fname){
-  #note that skip=1, in our edgelist there is 
+  #note that skip=1, in our edgelist there is
   #heading line with numbwer of vertices and edges
   elist<-as.matrix(read.table(fname,skip=1));
   return(graph_from_edgelist(elist, directed = FALSE));

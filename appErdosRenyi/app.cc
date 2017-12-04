@@ -2,8 +2,6 @@
 #include "erdosrenyi.hpp"
 #include "uhv.hpp"
 
-
-
 int main(){
 
    mrand::init(-1);
@@ -43,14 +41,10 @@ int main(){
       fprintf(fq,"%d %d\n",akt,fakt);
       fclose(fq);
 
-      
    }//ISM
    _ERR("er geom :%lf sec\n",tak());
 
    fclose(fp);
-
-   
-
 
 
    return 0;

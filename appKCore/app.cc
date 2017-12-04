@@ -29,8 +29,8 @@ int main(int np,char**p){
 			git=git->next;
 		}
 	}
-	
+
 	writeColVector(vector<tVI*>{&kcr.loc,&G.deg,&deg2},"_out");
-	
+
    return 0;
 }

@@ -84,7 +84,6 @@ namespace RMQ{
             ans=min(ans,t[a]);
          }
          //cerr<<a<<" "<<b<<" "<<ans<<"\n";
-         
          eddig=(b-block_sz+1)/block_sz*block_sz;
          for(;a<=b && eddig<=b;b--) {
             ans=min(ans,t[b]);

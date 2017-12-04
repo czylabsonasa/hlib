@@ -2,7 +2,6 @@
 #include "common.hpp"
 #include "vecutils.hpp"
 
-
 int main(){
 	writeVector(tVI{0,1,2,3},"egy",0);
 	writeVector(tVI{0,1,2,3},"ketto",1);
@@ -18,8 +17,6 @@ int main(){
 
 	writeColVector(vector<tVI*>{new tVI{1,2,3,4},new tVI{4,3,2,1}},"oszlop");
 	writeColVector(tVI{1,2,3,4},"oszlop0");
-	
 
-	
    return 0;
 }

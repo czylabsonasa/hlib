@@ -7,12 +7,10 @@
 #include "artipt.hpp"
 #include "pagerank.hpp"
 
-
-
 int main(){
 
    mrand::init(-1);
-tik();
+	tik();
    csillagosInfo csi;
    aTartaly T(int(csi.LEPES*csi.P*csi.NCSM));
    {
@@ -22,19 +20,17 @@ tik();
       CS.gen();
       CS.write();      
    }
-_LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
+	_LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
 
-tik();
- graph G; G.init(csi.V,T);
-_LOG(_ERR("graph (tartaly)=%lf sec\n",tak()));
+	tik();
+	graph G; G.init(csi.V,T);
+	_LOG(_ERR("graph (tartaly)=%lf sec\n",tak()));
 
-  
    //compAPTA(G);
-tik();
+	tik();
    tVI info(G.V+1);
    compGAPR(G,info);
-_LOG(_ERR("GAPR lasted %lf sec\n",tak()));
-
+	_LOG(_ERR("GAPR lasted %lf sec\n",tak()));
 
    {
       int nAP=0;
@@ -73,11 +69,6 @@ _LOG(_ERR("pagerank=%lf sec\n",tak()));
       }
    }
    _ERR("sum pageranks removed ap-s: %lf\n",s);
-
-
-
-   
-
 
    return 0;
 }

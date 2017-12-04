@@ -6,7 +6,7 @@
 int main(){
    mrand::init(-1);
 
-tik();
+	tik();
    klikkesInfo ki;
    aTartaly T(int(ki.LEPES*ki.P*ki.NKM));
 
@@ -14,7 +14,7 @@ tik();
    KL.clear(ki.LEPES);
    KL.gen();
 _LOG(_ERR("model (tartaly)=%lf sec\n",tak()));
-   KL.write();      
+   KL.write();
 
 	return 0;
 }

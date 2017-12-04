@@ -7,7 +7,7 @@
 
 int main(int np,char**p){
 	//	int sp=1;sscanf(p[2],"%d",&sp);
-	
+
 	tik();
    vector<tII> elist;
 	//read the edgelist from command line given file
@@ -29,16 +29,13 @@ int main(int np,char**p){
 	// dm.initLU();
 	// printf("diam=%d\n",dm.bruteForce2());
    // _LOG(_ERR("********* diam, bruteForce2: %lf sec\n",tak()));
-
 	// return 0;
-	
 
 	// tik();
 	// dm.initLU();
 	// printf("diam=%d\n",dm.ifub(G.V/2));
    // _LOG(_ERR("********* diam, ifub: %lf sec\n",tak()));
 
-	
 	// tik();
 	// dm.initLU();
 	// printf("diam=%d\n",dm.ifub(dm.maxSelect()));

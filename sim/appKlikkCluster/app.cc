@@ -5,7 +5,6 @@
 #include "klikkes.hpp"
 #include "tartaly.hpp"
 
-
 // tVI simLEP{100000,200000,300000,400000,500000,600000,700000,800000,900000,1000000,2000000,5000000,10000000};
 // tVI simISM{100,   100,   100,   100,   100,   50,    50,    50,    50,    30,     20,     10,     10};	
 
@@ -91,6 +90,7 @@ int main(int np,char**p){
 			write(ds, fdeg);
 		}//ismm
 	}//lep
+
 
    fclose(fdeg);
    fclose(fclus);
